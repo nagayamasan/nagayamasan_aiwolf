@@ -13,25 +13,24 @@ class Server extends Runnable {
     gameSetting.setValidateUtterance(false)
     gameSetting.setTalkOnFirstDay(true)
     gameSetting.setTimeLimit(5000)
-    val is = new Nothing(10000, 5, gameSetting)
+    val is = new TcpipServer(10000, 5, gameSetting)
     try
       is.waitForConnection
     catch {
       case e: IOException =>
         e.printStackTrace()
     }
-    val game = new Nothing(gameSetting, is)
+    val game = new AIWolfGame(gameSetting, is)
     var i = 0
-    while ( {
-      i < 1
-    }) {
-      game.setRand(new Random(i))
-      //game.setGameLogger(new FileGameLogger(new File("log/" + (new Date()).getTime() + ".txt")));
-      game.start
+      for(i <- 0 until 5) {
 
-      {
-        i += 1; i - 1
+        game.setRand(new Random(i))
+        //game.setGameLogger(new FileGameLogger(new File("log/" + (new Date()).getTime() + ".txt")));
+        game.start
       }
-    }
+
+
+
+
   }
 }

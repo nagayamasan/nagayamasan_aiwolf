@@ -1,0 +1,37 @@
+[0m[[0m[0minfo[0m] [0m[0mPackaging /Users/naga/nagayamasan_aiwolf/target/scala-2.12/nagayamasan_aiwolf_2.12-0.1.0-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaSeer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaSeer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaWerewolf.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaWerewolf.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/Server.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/Server.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaPlayer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaPlayer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaPossessed$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaPossessed$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaPlayer$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaPlayer$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaPerusona.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaPerusona.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaWerewolf$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaWerewolf$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaPossessed.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaPossessed.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaVillager.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaVillager.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaSeer$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaSeer$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	jp/ynu/eis/forest/naga/NagaVillager$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/naga/nagayamasan_aiwolf/target/scala-2.12/classes/jp/ynu/eis/forest/naga/NagaVillager$.class[0m
+[0m[[0m[0minfo[0m] [0m[0mDone packaging.[0m

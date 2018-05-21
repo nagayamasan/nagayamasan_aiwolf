@@ -1,14 +1,10 @@
 package jp.ynu.eis.forest.naga
 
-import org.aiwolf.common.data.Agent
-import org.aiwolf.common.data.Player
-import org.aiwolf.common.data.Role
+import org.aiwolf.common.data.{Agent, Player, Role}
 import org.aiwolf.common.net.GameInfo
 import org.aiwolf.common.net.GameSetting
 import org.aiwolf.common.net.TcpipClient
 import java.util
-
-import javax.management.relation.Role
 
 
 object NagaPlayer {
@@ -16,13 +12,13 @@ object NagaPlayer {
     System.out.println()
     new Thread(new Server).start()
     val nl = new util.ArrayList[NagaPlayer]
-    val cl = new util.ArrayList[Nothing]
+    val cl = new util.ArrayList[TcpipClient]
     var i = 0
     while ( {
       i < 5
     }) {
       nl.add(new NagaPlayer)
-      cl.add(new Nothing("localhost", 10000))
+      cl.add(new TcpipClient("localhost", 10000))
       cl.get(i).connect(nl.get(i))
 
       {
@@ -31,36 +27,39 @@ object NagaPlayer {
     }
   }
 }
+class NagaPlayer extends Player {
+  private var player : NagaPerusona= _
 
-class NagaPlayer extends Nothing {
-  private var player = null
+  override def getName: String = {
+    "naga"
+  }
+  override def update(gameInfo: GameInfo): Unit = player.update(gameInfo)
 
-  def getName = "yama"
+  override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
 
-  def update(gameInfo: Nothing): Unit = {
-    player.update(gameInfo)
+    player = gameInfo.getRole match {
+      case Role.SEER => NagaSeer(gameInfo,gameSetting)
+      case Role.POSSESSED =>  NagaPossessed(gameInfo,gameSetting)
+      case Role.WEREWOLF => NagaWerewolf(gameInfo,gameSetting)
+      case Role.VILLAGER => NagaVillager(gameInfo,gameSetting)
+      case _ => NagaVillager(gameInfo,gameSetting)
+    }
+    player.initialize(gameInfo,gameSetting)
   }
 
-  def initialize(gameInfo: Nothing, gameSetting: Nothing): Unit = {
-    player = new NagaSeer
-    if (gameInfo.getRole eq Role.SEER) player = new NagaSeer
-  }
+  override def dayStart(): Unit = player.dayStart()
 
-  def dayStart(): Unit = {
-  }
+  override def talk(): String = player.talk()
 
-  def talk: String = player.talk
+  override def whisper(): String = player.whisper()
 
-  def whisper: String = null
+  override def vote(): Agent = player.vote()
 
-  def vote: Nothing = null
+  override def attack(): Agent = player.attack()
 
-  def attack: Nothing = null
+  override def divine(): Agent = player.divine()
 
-  def divine: Nothing = null
+  override def guard(): Agent = player.guard()
 
-  def guard: Nothing = null
-
-  def finish(): Unit = {
-  }
+  override def finish(): Unit = player.finish()
 }

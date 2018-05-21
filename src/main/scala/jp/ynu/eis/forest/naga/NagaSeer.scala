@@ -1,43 +1,49 @@
 package jp.ynu.eis.forest.naga
 
-import org.aiwolf.client.lib._
 import org.aiwolf.common.data.Agent
-import org.aiwolf.common.data.Player
 import org.aiwolf.common.net.GameInfo
 import org.aiwolf.common.net.GameSetting
-import org.aiwolf.sample.lib.AbstractSeer
-import org.aiwolf.sample.player.SampleSeer
 
 
-class NagaSeer extends Nothing {
-  private[java] var g = null
 
-  def getName = "yama"
-
-  def update(gameInfo: Nothing): Unit = {
-    g = gameInfo
+case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPerusona{
+  override def update(gameInfo: GameInfo): Unit = {
+    this.gameInfo = gameInfo
   }
 
-  def initialize(gameInfo: Nothing, gameSetting: Nothing): Unit = {
+  override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
+
   }
 
-  def dayStart(): Unit = {
+  override def dayStart(): Unit = {
+
   }
 
-  def talk: String = { //return new Content(new AgreeContentBuilder(TalkType.TALK, 1,5)).getText();
-    g.getRole.toString
+  override def talk(): String = {
+    "kusahaeru"
   }
 
-  def whisper: String = null
+  override def whisper(): String = {
+    "I am whisper"
+  }
 
-  def vote: Nothing = null
+  override def vote(): Agent = {
+    null
+  }
 
-  def attack: Nothing = null
+  override def attack(): Agent = {
+    null
+  }
 
-  def divine: Nothing = null
+  override def divine(): Agent = {
+    null
+  }
 
-  def guard: Nothing = null
+  override def guard(): Agent = {
+    null
+  }
 
-  def finish(): Unit = {
+  override def finish(): Unit = {
+
   }
 }
