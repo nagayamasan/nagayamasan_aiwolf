@@ -1,5 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/naga/nagayamasan_aiwolf/src/main/scala/jp/ynu/eis/forest/naga/NagaPlayer.scala:31:38: not enough arguments for constructor NagaVillager: (gameInfo: org.aiwolf.common.net.GameInfo, gameSetting: org.aiwolf.common.net.GameSetting)jp.ynu.eis.forest.naga.NagaVillager.[0m
-[0m[[0m[31merror[0m] [0m[0mUnspecified value parameters gameInfo, gameSetting.[0m
-[0m[[0m[31merror[0m] [0m[0m  private var player : NagaPerusona= new NagaVillager()[0m
-[0m[[0m[31merror[0m] [0m[0m                                     ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
