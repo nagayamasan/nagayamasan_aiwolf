@@ -1,10 +1,11 @@
-package jp.ynu.eis.forest.naga
+package jp.ynu.eis.forest.naga.starter
+
+import java.io.IOException
+import java.util.Random
 
 import org.aiwolf.common.net.GameSetting
 import org.aiwolf.server.AIWolfGame
 import org.aiwolf.server.net.TcpipServer
-import java.io.IOException
-import java.util.Random
 
 
 class Server extends Runnable {
@@ -28,8 +29,11 @@ class Server extends Runnable {
         //game.setGameLogger(new FileGameLogger(new File("log/" + (new Date()).getTime() + ".txt")));
         game.start
       }
-
-
+    while(!game.isGameFinished){
+      //Nothing else
+    }
+    game.finish()
+    is.close()
 
 
   }

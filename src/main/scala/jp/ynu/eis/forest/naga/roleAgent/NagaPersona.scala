@@ -1,10 +1,11 @@
-package jp.ynu.eis.forest.naga
+package jp.ynu.eis.forest.naga.roleAgent
 
-import org.aiwolf.common.data.{Agent, Player}
+import org.aiwolf.common.data.Agent
 import org.aiwolf.common.net.{GameInfo, GameSetting}
 
-trait NagaPerusona {
-  def getName: String = "naga"
+trait NagaPersona {
+  val name : String = "naga"
+
 
   def update(gameInfo: GameInfo): Unit
 
@@ -14,15 +15,7 @@ trait NagaPerusona {
 
   def talk(): String
 
-  def whisper(): String
-
   def vote(): Agent
-
-  def attack(): Agent
-
-  def divine(): Agent
-
-  def guard(): Agent
 
   def finish(): Unit
 }

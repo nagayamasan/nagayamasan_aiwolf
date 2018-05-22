@@ -1,9 +1,12 @@
-package jp.ynu.eis.forest.naga
+package jp.ynu.eis.forest.naga.roleAgent
 
+import jp.ynu.eis.forest.naga.analyzeSystem.{DialogManager, PipeLine}
 import org.aiwolf.common.data.Agent
 import org.aiwolf.common.net.{GameInfo, GameSetting}
 
-case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPerusona {
+case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona{
+
+  val dm = new DialogManager
 
   override def update(gameInfo: GameInfo): Unit = {
     this.gameInfo = gameInfo
@@ -18,26 +21,14 @@ case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extend
   }
 
   override def talk(): String = {
-    "mamoru"
-  }
-
-  override def whisper(): String = {
-    "kusa"
+    new PipeLine(gameInfo, dm).getOutput
   }
 
   override def vote(): Agent = {
     null
   }
 
-  override def attack(): Agent = {
-    null
-  }
-
-  override def divine(): Agent = {
-    null
-  }
-
-  override def guard(): Agent = {
+  def divine(): Agent = {
     null
   }
 
