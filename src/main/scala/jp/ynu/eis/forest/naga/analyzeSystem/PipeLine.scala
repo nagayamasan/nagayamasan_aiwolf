@@ -7,16 +7,16 @@ class PipeLine(gameInfo: GameInfo, dm :DialogManager) {
 
   dm.gameInfoList += gameInfo
 
-  val uaResult : UttranceResult= UttranceAnalyzer(gameInfo).getResult
+  val uaResult : UtteranceResult= UtteranceAnalyzer(gameInfo).getResult
   var ugInput : String = ""
   if(uaResult.needQA){
     val qaResult :QuestionResult = QuestionAnalyzer(uaResult).getResult
-    ugInput = AnswerGenerater(qaResult).getResresult
+    ugInput = AnswerGenerator(qaResult).getResresult
   }else{
     ugInput = uaResult.response
   }
 
-  val ugResult :String = UttaranceGenerater(ugInput).getResult
+  val ugResult :String = UtteranceGenerator(ugInput).getResult
 
   def getOutput:String={
     ugResult
