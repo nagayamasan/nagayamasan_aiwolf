@@ -5,6 +5,6 @@ import scala.collection.mutable
 
 class DialogManager{
 
-  val gameInfoList = mutable.MutableList.empty[GameInfo]
+  var gameInfoList = mutable.MutableList.empty[GameInfo]
 }
 
