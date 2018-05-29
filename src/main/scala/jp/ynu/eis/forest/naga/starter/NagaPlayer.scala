@@ -5,18 +5,11 @@ import java.util
 import jp.ynu.eis.forest.naga.roleAgent._
 import org.aiwolf.common.data.{Agent, Player, Role, Talk}
 import org.aiwolf.common.net.{GameInfo, GameSetting, TcpipClient}
-import org.jsoup._
 
 
 object NagaPlayer {
   def main(args: Array[String]): Unit = {
-    //println(Jsoup.connect("http://wolfg.x0.com/index.rb?vid=1894&").get)
-    /*val url = "http://wolfg.x0.com/index.rb?vid=1894&"
-    val source: nodes.Document = Jsoup.connect(url).get
-    val (head, body) = (source.head, source.body)
-    val line: String = body.text()
 
-    println(line)*/
     val serv = new Thread(new Server)
     serv.start()
     //ugly code

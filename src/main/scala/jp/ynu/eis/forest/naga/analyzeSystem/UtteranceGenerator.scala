@@ -1,6 +1,7 @@
 package jp.ynu.eis.forest.naga.analyzeSystem
 
-case class UttaranceGenerater(answerResult: String) {
+case class UtteranceGenerator(answerResult: String) {
+
   def getResult: String={
     answerResult
   }
