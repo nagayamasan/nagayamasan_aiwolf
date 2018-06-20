@@ -14,8 +14,7 @@ case class UtteranceAnalyzer(gameInfo: GameInfo) {
   def getResult: UtteranceResult = {
     val tl: util.List[Talk] =  gameInfo.getTalkList
     val res: String = "そだね"
-
     UtteranceResult(tl ,true,"")
-    UtteranceResult(tl , false, res)
+
   }
 }

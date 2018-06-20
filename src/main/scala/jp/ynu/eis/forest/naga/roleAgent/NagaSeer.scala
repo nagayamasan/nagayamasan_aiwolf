@@ -1,18 +1,21 @@
 package jp.ynu.eis.forest.naga.roleAgent
 
+import java.util
+
 import jp.ynu.eis.forest.naga.analyzeSystem.{DialogManager, PipeLine}
+
 import org.aiwolf.common.data.{Agent, Judge, Role, Species}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
 
 import scala.collection.mutable
 import scala.math.random
+import scala.util.Random
 
 case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
 
   val dm = new DialogManager
   var turn = 0
-
-  var divineList = mutable.MutableList.empty[Judge]
+  val divineList = mutable.MutableList.empty[Judge]
 
 
   override def update(gameInfo: GameInfo): Unit = {
@@ -25,7 +28,7 @@ case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends Na
 
   override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
     dm.gameInfoList = mutable.MutableList.empty[GameInfo]
-    divineList = mutable.MutableList.empty[Judge]
+    divineList.clear()
   }
 
   override def dayStart(): Unit = {
@@ -51,14 +54,20 @@ case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends Na
   }
 
   def divine(): Agent = {
-    val candidateAgentList = gameInfo.getAliveAgentList
+    val candidateAgentList: util.List[Agent] = gameInfo.getAliveAgentList
+
     if (divineList.nonEmpty) {
       divineList.foreach(f => {
         candidateAgentList.remove(f.getTarget)
       })
     }
+    if(!candidateAgentList.isEmpty){
+      candidateAgentList.get(Random.nextInt(candidateAgentList.size()))
+    }else{
+      println("uranaemasenn")
+        null
+    }
 
-    candidateAgentList.get(candidateAgentList.size() * random().toInt)
   }
 
   override def finish(): Unit = {
