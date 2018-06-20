@@ -16,12 +16,6 @@ import scala.sys.process._
 
 object NagaPlayer {
   def main(args: Array[String]): Unit = {
-    val str = "大きなのっぽの古時計を買った。"
-
-    val s: String = s"echo $str"#| "cabocha -f1" !!
-
-    println(s)
-
 
     val serv = new Thread(new Server)
     serv.start()

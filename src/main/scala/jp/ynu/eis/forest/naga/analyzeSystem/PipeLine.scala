@@ -16,7 +16,7 @@ class PipeLine(gameInfo: GameInfo, dm :DialogManager) {
     ugInput = uaResult.response
   }
 
-  val ugResult :String = UtteranceGenerater(ugInput).getResult
+  val ugResult :String = UtteranceGenerator(ugInput).getResult
 
   def getOutput:String={
     ugResult

@@ -15,11 +15,13 @@ case class NagaPossessed(var gameInfo: GameInfo, gameSetting: GameSetting) exten
   }
 
   override def dayStart(): Unit = {
+    //println("おはよう、早速だけど僕が占い師だよ")
 
   }
 
   override def talk(): String = {
     new PipeLine(gameInfo, dm).getOutput
+
   }
 
   override def vote(): Agent = {
