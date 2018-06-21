@@ -4,7 +4,6 @@ import org.aiwolf.common.net.GameInfo
 import scala.collection.mutable
 
 class DialogManager{
-
-  var gameInfoList = mutable.MutableList.empty[GameInfo]
+  val gameInfoList = mutable.MutableList.empty[GameInfo]
 }
 
