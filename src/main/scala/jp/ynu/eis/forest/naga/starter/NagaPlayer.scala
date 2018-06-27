@@ -6,12 +6,6 @@ import jp.ynu.eis.forest.naga.roleAgent._
 import org.aiwolf.common.data.{Agent, Player, Role, Talk}
 import org.aiwolf.common.net.{GameInfo, GameSetting, TcpipClient}
 import org.jsoup._
-import us.feliscat.text.StringOption
-import us.feliscat.text.analyzer.mor.mecab.IpadicMecab
-import us.feliscat.text.analyzer.dep.cabocha.CaboCha
-import us.feliscat.text.normalizer.ja.JapaneseNormalizedString
-
-import scala.sys.process._
 
 
 object NagaPlayer {

@@ -10,5 +10,4 @@ import scala.collection.mutable
 
 case class UtteranceResult(talkList: mutable.MutableList[Talk], needQA: Boolean, response: String) {
 
-
 }
