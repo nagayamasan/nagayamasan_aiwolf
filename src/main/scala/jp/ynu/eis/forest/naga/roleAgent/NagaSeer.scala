@@ -2,8 +2,8 @@ package jp.ynu.eis.forest.naga.roleAgent
 
 import java.util
 
-import jp.ynu.eis.forest.naga.analyzeSystem.{DialogManager, PipeLine}
-
+import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import org.aiwolf.common.data.{Agent, Judge, Role, Species}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
 
@@ -27,7 +27,7 @@ case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends Na
   }
 
   override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
-    dm.gameInfoList = mutable.MutableList.empty[GameInfo]
+    //dm.gameInfoList = mutable.MutableList.empty[GameInfo]
     divineList.clear()
   }
 

@@ -1,11 +1,13 @@
 package jp.ynu.eis.forest.naga.roleAgent
 
-import jp.ynu.eis.forest.naga.analyzeSystem.{DialogManager, PipeLine}
+import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import org.aiwolf.common.data.Agent
 import org.aiwolf.common.net.{GameInfo, GameSetting, JudgeToSend}
 
 case class NagaPossessed(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
   val dm = new DialogManager
+  //val blackSeer:Agent =
   override def update(gameInfo: GameInfo): Unit = {
     this.gameInfo = gameInfo
   }
@@ -21,7 +23,6 @@ case class NagaPossessed(var gameInfo: GameInfo, gameSetting: GameSetting) exten
 
   override def talk(): String = {
     new PipeLine(gameInfo, dm).getOutput
-
   }
 
   override def vote(): Agent = {

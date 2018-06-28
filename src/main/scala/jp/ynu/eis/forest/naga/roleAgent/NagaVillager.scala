@@ -1,6 +1,7 @@
 package jp.ynu.eis.forest.naga.roleAgent
 
-import jp.ynu.eis.forest.naga.analyzeSystem.{DialogManager, PipeLine}
+import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import org.aiwolf.common.data.{Agent, Species}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
 
@@ -17,7 +18,7 @@ case class NagaVillager(var gameInfo: GameInfo, gameSetting: GameSetting) extend
   }
 
   override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
-    dm.gameInfoList = mutable.MutableList.empty[GameInfo]
+    //dm.gameInfoList = mutable.MutableList.empty[GameInfo]
   }
 
   override def dayStart(): Unit = {
