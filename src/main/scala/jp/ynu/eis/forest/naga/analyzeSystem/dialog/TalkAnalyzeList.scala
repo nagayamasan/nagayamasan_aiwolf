@@ -1,5 +1,6 @@
 package jp.ynu.eis.forest.naga.analyzeSystem.dialog
 
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.AnalyzeList.AnlyzeList
 import org.aiwolf.common.data.Talk
 import org.aiwolf.common.net.GameInfo
 
