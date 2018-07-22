@@ -21,7 +21,6 @@ case class QuestionAnalyzer(ur: UtteranceResult){
         questionClass("reason") = true
       }
     })
-    println("questionClass", questionClass)
     analist
     QuestionResult(spell = "uaaa", questionClass)
   }

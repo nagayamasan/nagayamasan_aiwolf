@@ -7,6 +7,7 @@ import org.aiwolf.common.net.GameInfo
 
 case class WolfUA(dm: DialogManager) extends UtteranceAnalyzer {
   seerDetective
+  possessedDitective
   override def getResult: UtteranceResult = {
     super.getResult
   }
@@ -17,7 +18,14 @@ case class WolfUA(dm: DialogManager) extends UtteranceAnalyzer {
   }
 
   def possessedDitective ={
-    val possword = ""
+    val possesedWord = "狂人"
+    if(reCentTalklist != null){
+      reCentTalklist.foreach(f => {
+        if(f.getText.contains(possesedWord)){
+          dm.possList += f.getAgent
+        }
+      })
+    }
 
   }
 
