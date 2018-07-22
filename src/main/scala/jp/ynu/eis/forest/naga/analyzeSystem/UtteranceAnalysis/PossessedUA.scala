@@ -7,7 +7,12 @@ import org.aiwolf.common.data.{Agent, Talk}
 
 case class PossessedUA(dm: DialogManager) extends UtteranceAnalyzer {
   seerDetective
+
   override def getResult: UtteranceResult = {
     super.getResult
+  }
+
+  override def seerDetective  = {
+    dm.seerList += dm.gameInfoList.last.getAgent
   }
 }
