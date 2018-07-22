@@ -11,15 +11,17 @@ import scala.collection.mutable
 import scala.util.control.Breaks
 
 trait UtteranceAnalyzer {
-  spellAnalyze
-  seerDetective
+  if(dm.taList.talkList.nonEmpty){
+    spellAnalyze
+    seerDetective
+  }
   val dm : DialogManager
   val talkanalyzelist: TalkAnalyzeList = dm.taList
   val reCentTalklist = talkanalyzelist.talkList.takeRight(4)
 
   def getResult: UtteranceResult= {
     val b = new Breaks
-    var isQA: Boolean = true
+    var isQA: Boolean = false
 
     val myname = dm.gameInfoList.last.getAgent.toString.r
     val question = "？".r
@@ -41,7 +43,6 @@ trait UtteranceAnalyzer {
   def spellAnalyze ={
     CaboCha.getResult(dm)
     MeCab.getResult(dm)
-
   }
 
   def seerDetective= {
