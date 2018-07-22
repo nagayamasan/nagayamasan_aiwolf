@@ -23,20 +23,10 @@ trait UtteranceAnalyzer {
     val b = new Breaks
     var isQA: Boolean = false
 
-    val myname = dm.gameInfoList.last.getAgent.toString.r
-    val question = "？".r
+    val myname = dm.gameInfoList.last.getAgent.toString
+    val question = """\?""".r
+    isQA = reCentTalklist.exists(f => question.findFirstIn(f.getText).nonEmpty && f.getText.contains(">>" + myname))
 
-    reCentTalklist.foreach{
-      f =>
-        if(question.findFirstIn(f.getText).nonEmpty && myname.findFirstIn(f.getText).nonEmpty){
-          isQA = true
-          b.break
-        }
-        else{
-          isQA = false
-        }
-
-    }
     UtteranceResult(dm,isQA,"")
 
   }
@@ -51,13 +41,15 @@ trait UtteranceAnalyzer {
     val iam = "私".r
     val seer = "占い".r
     val kekka = "結果".r
-    reCentTalklist.foreach{
-      f =>
-        if(kekka.findFirstIn(f.getText).nonEmpty){
-          dm.seerList += f.getAgent
+    if (reCentTalklist != null) {
+      reCentTalklist.foreach{
+        f =>
+          if(kekka.findFirstIn(f.getText).nonEmpty){
+            dm.seerList += f.getAgent
+
+          }
 
       }
-
     }
   }
 
