@@ -9,12 +9,9 @@ import org.aiwolf.common.data.{Agent, Talk}
 import org.aiwolf.common.net.GameInfo
 
 case class SeerUA(dm : DialogManager) extends UtteranceAnalyzer {
-  seerDetective
+  //seerDetective
   override def getResult: UtteranceResult = {
     super.getResult
   }
 
-  override def seerDetective: Agent = {
-    dm.gameInfoList.last.getAgent
-  }
 }

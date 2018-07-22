@@ -10,5 +10,16 @@ case class WolfUA(dm: DialogManager) extends UtteranceAnalyzer {
   override def getResult: UtteranceResult = {
     super.getResult
   }
+
+  override def seerDetective: Unit = {
+    super.seerDetective
+
+  }
+
+  def possessedDitective ={
+    val possword = ""
+
+  }
+
 }
 

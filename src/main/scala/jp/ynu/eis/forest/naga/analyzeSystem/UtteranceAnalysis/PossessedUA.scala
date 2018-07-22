@@ -12,7 +12,7 @@ case class PossessedUA(dm: DialogManager) extends UtteranceAnalyzer {
     super.getResult
   }
 
-  override def seerDetective: Agent = {
-    dm.gameInfoList.last.getAgent
+  override def seerDetective  = {
+    dm.seerList += dm.gameInfoList.last.getAgent
   }
 }

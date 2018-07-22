@@ -26,9 +26,15 @@ case class NagaPossessed(var gameInfo: GameInfo, gameSetting: GameSetting) exten
   }
 
   override def vote(): Agent = {
-    null
+   val votelist = dm.seerList.filter(_ != gameInfo.getAgent)
+    if(votelist.isEmpty){
+      null
+    }
+    else votelist.last
+
   }
   override def finish(): Unit = {
+
 
   }
 }

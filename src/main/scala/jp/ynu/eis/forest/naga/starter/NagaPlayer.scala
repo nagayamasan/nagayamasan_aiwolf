@@ -2,6 +2,7 @@ package jp.ynu.eis.forest.naga.starter
 
 import java.util
 
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import jp.ynu.eis.forest.naga.roleAgent._
 import org.aiwolf.common.data.{Agent, Player, Role, Talk}
 import org.aiwolf.common.net.{GameInfo, GameSetting, TcpipClient}
@@ -10,23 +11,16 @@ import us.feliscat.text.{StringOption, StringSome}
 import us.feliscat.text.analyzer.dep.cabocha.CaboCha
 import us.feliscat.text.analyzer.mor.mecab.IpadicMecab
 
-import scala.collection.mutable
+import scala.collection.{immutable, mutable}
+import scala.io.Source
 import scala.sys.process._
 import scala.util.matching.Regex
 
 object NagaPlayer {
   def main(args: Array[String]): Unit = {
 
-    val wordData  = mutable.MutableList.empty[mutable.MutableList[String]]
-    var word = mutable.MutableList.empty[String]
-    word += "A"
-    wordData += word
-    word = mutable.MutableList.empty[String]
-    word += "da"
-    wordData += word
-    println(wordData)
 
-    /*val serv = new Thread(new Server)
+    val serv = new Thread(new Server)
     serv.start()
     //ugly code
     serv.join(1000)
@@ -38,10 +32,11 @@ object NagaPlayer {
       cl.add(new TcpipClient("localhost", 10000))
       cl.get(i).connect(nl.get(i))
 
-        i += 1
-*/
+      i += 1
+
     }
 
+  }
 }
 class NagaPlayer extends Player {
   private var playerOpt: Option[NagaPersona]  = Option.empty[NagaPersona]

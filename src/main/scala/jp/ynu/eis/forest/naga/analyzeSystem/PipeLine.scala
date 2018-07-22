@@ -9,7 +9,7 @@ import org.aiwolf.common.net.GameInfo
 case class PipeLine(gameInfo: GameInfo, dm :DialogManager) {
   var uaResultOpt : Option[UtteranceResult] = Option.empty[UtteranceResult]
   dm.gameInfoList += gameInfo
-  if(!dm.taList.talkList.isEmpty){dm.taList.collecting(gameInfo)}
+  if(dm.taList.talkList.nonEmpty){dm.taList.collecting(gameInfo)}
 
   uaResultOpt = Option(gameInfo.getRole match {
     case Role.SEER => SeerUA(dm).getResult
