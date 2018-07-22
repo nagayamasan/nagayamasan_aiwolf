@@ -50,7 +50,7 @@ case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends Na
       candidateAgentList.remove(f.getTarget)
     })
 
-    candidateAgentList.get(candidateAgentList.size() * random().toInt)
+    candidateAgentList.get(Random.nextInt(candidateAgentList.size()))
   }
 
   def divine(): Agent = {
