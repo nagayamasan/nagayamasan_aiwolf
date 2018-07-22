@@ -34,8 +34,8 @@ object NagaPlayer {
 
       i += 1
 
-    }
 
+    }
   }
 }
 class NagaPlayer extends Player {

@@ -21,7 +21,7 @@ trait UtteranceAnalyzer {
     val b = new Breaks
     var isQA: Boolean = true
 
-    val myname = dm.gameInfoList.last.getAgent.toString.r
+    val myname = (">>" + dm.gameInfoList.last.getAgent.toString).r
     val question = "？".r
 
     reCentTalklist.foreach{
@@ -56,19 +56,7 @@ trait UtteranceAnalyzer {
           dm.seerList += f.getAgent
 
       }
-
     }
-  }
-
-  def opponentDetective ={
-    //エージェントの正体を見つける
-
-    val kanofact = "\\?".r
-    val keldicfact = "なんとなく".r
-    val wordwolffact = "白|黒".r
-    val mcrefact = "自称占い師".r
-    val indigofact = "私は".r
-
   }
 
 }
