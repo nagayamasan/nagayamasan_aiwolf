@@ -13,6 +13,9 @@ class TalkAnalyzeList {
   //val AgentList = mutable.MutableList.empty[Agent]
 
   def collecting(gameInfo: GameInfo): Unit={
-    talkList += gameInfo.getTalkList.get(gameInfo.getTalkList.size() -1)
+    if(gameInfo.getTalkList.isEmpty){
+    }else{
+      talkList += gameInfo.getTalkList.get(gameInfo.getTalkList.size() -1)
+    }
   }
 }
