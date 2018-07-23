@@ -10,9 +10,16 @@ case class UtteranceGenerator(answerResult: String) {
       return answerResult
     }
     val resource = "resource"
-    val file = Source.fromFile(s"${resource}/kanofact.txt")
-    val kanoList = file.getLines.toList
-    kanoList(Random.nextInt(kanoList.size))
+    val kanoFile = Source.fromFile(s"${resource}/kanofact.txt")
+    val mcreFile = Source.fromFile(s"${resource}/mcrefact.txt")
+    val keldicFile = Source.fromFile(s"${resource}/keldicfact.txt")
+    val wwFile = Source.fromFile(s"${resource}/wordwolffact.txt")
+    val kanoList = kanoFile.getLines.toList
+    val mcreList = mcreFile.getLines.toList
+    val keldicList = keldicFile.getLines.toList
+    val wwList = wwFile.getLines.toList
+    var list = kanoList ::: mcreList ::: keldicList ::: wwList
+    list(Random.nextInt(list.size))
   }
 
 }
