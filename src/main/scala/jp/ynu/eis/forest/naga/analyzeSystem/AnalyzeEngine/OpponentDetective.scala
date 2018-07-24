@@ -21,30 +21,41 @@ object OpponentDetective{
   val mcreLines = McreSource.getLines
   val wordwolfLines = WordWolfSource.getLines
 
-  def getEnemyName(dm: DialogManager): Unit ={
+  def collectEnemyName(dm: DialogManager): Unit ={
     val tlList = dm.taList.talkList.takeRight(4)
     val odList = dm.taList.anaList.resod
 
     tlList.foreach{
       tl =>
+        tl.getText.replaceAll("""\[[0-9][0-9]\]""" ,"[00]")
+
         if(tl.isOver || tl.isSkip){
           //no action
 
-        } else if(kanoLines.contains(tl.getText)) {
+        }
+        if(kanoLines.contains(tl.getText)) {
           dm.taList.anaList.resod.kanoList += tl.getAgent
 
-        } else if(keldicLines.contains(tl.getText)) {
+        }
+        if(keldicLines.contains(tl.getText)) {
             dm.taList.anaList.resod.keldicList += tl.getAgent
 
-        } else if(mcreLines.contains(tl.getText)) {
+        }
+        if(mcreLines.contains(tl.getText)) {
           dm.taList.anaList.resod.mcreList += tl.getAgent
 
-        } else if(wordwolfLines.contains(tl.getText)) {
+        }
+        if(wordwolfLines.contains(tl.getText)) {
           dm.taList.anaList.resod.wordwolfList += tl.getAgent
 
-        } else{
+        }
+        else{
           dm.taList.anaList.resod.indigoList += tl.getAgent
         }
+    }
+    def getEnemyname(dm: DialogManager): Unit ={
+
+
     }
   }
 

@@ -33,7 +33,7 @@ trait UtteranceAnalyzer {
   def spellAnalyze ={
       CaboCha.getResult(dm)
       MeCab.getResult(dm)
-      OpponentDetective.getEnemyName(dm)
+      OpponentDetective.collectEnemyName(dm)
 
   }
 
