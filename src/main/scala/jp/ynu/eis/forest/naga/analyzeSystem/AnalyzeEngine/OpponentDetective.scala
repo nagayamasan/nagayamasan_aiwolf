@@ -9,7 +9,7 @@ import scala.io.Source
 object OpponentDetective{
 
   val seq: mutable.MutableList[(Char, Char)] = mutable.MutableList.empty[(Char, Char)]
-  val sourceDir = "resource"
+  val sourceDir = "resource/fact"
 
   val KanoSource = Source.fromFile(s"${sourceDir}/kanofact.txt")
   val KeldicSource = Source.fromFile(s"${sourceDir}/keldicfact.txt")

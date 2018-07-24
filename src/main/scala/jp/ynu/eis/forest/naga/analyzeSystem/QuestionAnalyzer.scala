@@ -9,7 +9,7 @@ case class QuestionAnalyzer(ur: UtteranceResult){
   def getResult: QuestionResult ={
     val analist = ur.questionList
     val gameInfo = ur.dm.gameInfoList
-    val questionClass = mutable.Map("role" -> false, "vote" -> false, "reason" -> false)
+    val questionClass = mutable.Map("role" -> false, "vote" -> false, "reason" -> false, "who" -> false)
     ur.dm.taList.anaList.resc.wordData.foreach(f => {
       if(f.contains("役職")){
         questionClass("role") = true
@@ -19,6 +19,9 @@ case class QuestionAnalyzer(ur: UtteranceResult){
       }
       if(f.contains("どうして")){
         questionClass("reason") = true
+      }
+      if(f.contains("誰が")){
+        questionClass("who") = true
       }
     })
     analist

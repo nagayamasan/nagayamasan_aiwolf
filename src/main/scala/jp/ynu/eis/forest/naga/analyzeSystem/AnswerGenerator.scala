@@ -5,7 +5,9 @@ import jp.ynu.eis.forest.naga.result.QuestionResult
 case class AnswerGenerator(question: QuestionResult){
   def getResresult: String = {
     var resresult = ""
-    if(question.questionClass("vote")){
+    if(question.questionClass("who")){
+      resresult = "お前だよ"
+    }else if(question.questionClass("vote")){
       resresult = "教えない。"
     }else if(question.questionClass("role")){
       resresult = "ひみつ。"

@@ -32,7 +32,16 @@ case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extend
   }
 
   override def vote(): Agent = {
-    null
+    val attackList: mutable.MutableList[Agent] = dm.seerList
+    if(attackList.isEmpty){
+      return null
+    }else if(attackList.size == 1){
+      return attackList.head
+    }else if(attackList.contains(dm.taList.anaList.resod.kano)){
+      return dm.taList.anaList.resod.kano
+    }else{
+      return null
+    }
   }
 
   def attack(): Agent = {
