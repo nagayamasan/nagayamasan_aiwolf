@@ -5,6 +5,8 @@ import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import org.aiwolf.common.data.Agent
 import org.aiwolf.common.net.{GameInfo, GameSetting}
 
+import scala.collection.mutable
+
 case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
 
   val dm = new DialogManager
@@ -34,7 +36,16 @@ case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extend
   }
 
   def attack(): Agent = {
-    null
+    val attackList: mutable.MutableList[Agent] = dm.seerList
+    if(attackList.isEmpty){
+      return null
+    }else if(attackList.size == 1){
+      return attackList.head
+    }else if(attackList.contains(dm.taList.anaList.resod.kano)){
+      return dm.taList.anaList.resod.kano
+    }else{
+      return null
+    }
   }
   override def finish(): Unit = {
 

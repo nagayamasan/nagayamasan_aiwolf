@@ -12,4 +12,9 @@ class ResultOfOppDet {
   val wordwolfList = mutable.MutableList.empty[Agent]
   val indigoList = mutable.MutableList.empty[Agent]
 
+  val kano = Agent
+  val keldic = Agent
+  val mcre = Agent
+  val wordWolf = Agent
+  val indigo = Agent
 }
