@@ -6,7 +6,7 @@ import org.aiwolf.common.net.GameInfo
 
 case class VillagerUA(dm: DialogManager) extends UtteranceAnalyzer {
   seerDetective
-  opponentDetective
+  //opponentDetective
   override def getResult: UtteranceResult ={
     super.getResult
   }

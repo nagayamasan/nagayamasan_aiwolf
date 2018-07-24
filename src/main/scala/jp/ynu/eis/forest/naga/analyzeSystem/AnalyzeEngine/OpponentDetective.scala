@@ -6,31 +6,45 @@ import org.aiwolf.common.data.Agent
 import scala.collection.{immutable, mutable}
 import scala.io.Source
 
-object OpponentDetective {
+object OpponentDetective{
 
-  val seq = mutable.MutableList.empty[(Char, Char)]
+  val seq: mutable.MutableList[(Char, Char)] = mutable.MutableList.empty[(Char, Char)]
   val sourceDir = "resource"
+
   val KanoSource = Source.fromFile(s"${sourceDir}/kanofact.txt")
-  val KldicSource = Source.fromFile(s"${sourceDir}/keldicfact.txt")
+  val KeldicSource = Source.fromFile(s"${sourceDir}/keldicfact.txt")
+  val McreSource = Source.fromFile(s"${sourceDir}/mcrefact.txt")
+  val WordWolfSource = Source.fromFile(s"${sourceDir}/wordwolffact.txt")
 
-  val kanoLines = KanoSource.getLines.toList
-  val kanoList = mutable.MutableList.empty[Agent]
+  val kanoLines = KanoSource.getLines
+  val keldicLines = KeldicSource.getLines
+  val mcreLines = McreSource.getLines
+  val wordwolfLines = WordWolfSource.getLines
 
-  def KanoDetective(dm: DialogManager): Unit ={
+  def getEnemyName(dm: DialogManager): Unit ={
     val tlList = dm.taList.talkList.takeRight(4)
+    val odList = dm.taList.anaList.resod
 
-    kanoLines.foreach{
-      f =>
-        tlList.foreach{
-          tl =>
-            if(f == tl.getText){
-              kanoList += tl.getAgent
-            }
+    tlList.foreach{
+      tl =>
+        if(tl.isOver || tl.isSkip){
+          //no action
+
+        } else if(kanoLines.contains(tl.getText)) {
+          dm.taList.anaList.resod.kanoList += tl.getAgent
+
+        } else if(keldicLines.contains(tl.getText)) {
+            dm.taList.anaList.resod.keldicList += tl.getAgent
+
+        } else if(mcreLines.contains(tl.getText)) {
+          dm.taList.anaList.resod.mcreList += tl.getAgent
+
+        } else if(wordwolfLines.contains(tl.getText)) {
+          dm.taList.anaList.resod.wordwolfList += tl.getAgent
+
+        } else{
+          dm.taList.anaList.resod.indigoList += tl.getAgent
         }
-
-
-
-
     }
   }
 
