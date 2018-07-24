@@ -9,7 +9,7 @@ case class UtteranceGenerator(answerResult: String) {
     if(answerResult.nonEmpty){
       return answerResult
     }
-    val resource = "resource"
+    val resource = "resource/fact"
     val kanoFile = Source.fromFile(s"${resource}/kanofact.txt")
     val mcreFile = Source.fromFile(s"${resource}/mcrefact.txt")
     val keldicFile = Source.fromFile(s"${resource}/keldicfact.txt")

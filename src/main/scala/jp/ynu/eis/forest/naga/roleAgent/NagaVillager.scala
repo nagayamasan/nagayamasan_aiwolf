@@ -4,6 +4,7 @@ import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import org.aiwolf.common.data.{Agent, Species}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
+import scala.collection.JavaConversions._
 
 import scala.collection.mutable
 import scala.math.random
@@ -31,6 +32,7 @@ case class NagaVillager(var gameInfo: GameInfo, gameSetting: GameSetting) extend
 
   override def vote(): Agent = {
     val candidateAgentList = gameInfo.getAliveAgentList
+    candidateAgentList.removeAll(dm.seerList)
     candidateAgentList.get(candidateAgentList.size() * random().toInt)
   }
 
