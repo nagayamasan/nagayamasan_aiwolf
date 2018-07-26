@@ -6,7 +6,6 @@ import org.aiwolf.common.data.Agent
 import org.aiwolf.common.net.{GameInfo, GameSetting, JudgeToSend}
 
 case class NagaPossessed(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
-  val dm = new DialogManager
   //val blackSeer:Agent =
   override def update(gameInfo: GameInfo): Unit = {
     this.gameInfo = gameInfo
@@ -17,12 +16,11 @@ case class NagaPossessed(var gameInfo: GameInfo, gameSetting: GameSetting) exten
   }
 
   override def dayStart(): Unit = {
-    //println("おはよう、早速だけど僕が占い師だよ")
-
+    super.dayStart()
   }
 
   override def talk(): String = {
-    new PipeLine(gameInfo, dm).getOutput
+    super.talk()
   }
 
   override def vote(): Agent = {
