@@ -3,4 +3,4 @@ out/
 target/
 lib/
 data/
-resource/
+fact/*.text

@@ -9,10 +9,7 @@ import scala.collection.mutable
 
 case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
 
-  val dm = new DialogManager
-
   override def update(gameInfo: GameInfo): Unit = {
-    this.gameInfo = gameInfo
   }
 
   override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
@@ -20,11 +17,11 @@ case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extend
   }
 
   override def dayStart(): Unit = {
-
+    super.dayStart()
   }
 
   override def talk(): String = {
-    new PipeLine(gameInfo, dm).getOutput
+    super.talk()
   }
 
   def whisper(): String = {
