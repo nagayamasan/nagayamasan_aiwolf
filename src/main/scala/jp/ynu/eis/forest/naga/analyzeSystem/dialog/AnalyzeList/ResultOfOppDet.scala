@@ -6,14 +6,14 @@ import org.aiwolf.common.data.Agent
 import scala.collection.mutable
 
 class ResultOfOppDet {
-  val kanoList = mutable.MutableList.empty[Agent]
-  val keldicList = mutable.MutableList.empty[Agent]
-  val mcreList = mutable.MutableList.empty[Agent]
-  val wordwolfList = mutable.MutableList.empty[Agent]
-  val indigoList = mutable.MutableList.empty[Agent]
+  var kanoList = mutable.MutableList.empty[Agent]
+  var keldicList = mutable.MutableList.empty[Agent]
+  var mcreList = mutable.MutableList.empty[Agent]
+  var wordWolfList = mutable.MutableList.empty[Agent]
+  var indigoList = mutable.MutableList.empty[Agent]
 
   var kano = Option.empty[Agent]
-  var keldic : Option[Agent] = Option.empty[Agent]
+  var keldic = Option.empty[Agent]
   var mcre = Option.empty[Agent]
   var wordWolf = Option.empty[Agent]
   var indigo = Option.empty[Agent]
