@@ -60,6 +60,7 @@ object OpponentDetective{
       var wordwolfMax: Int = 0
       var indigoMax: Int = 0
 
+
       tlList.foreach {
         tl =>
           if(kanoMax < dm.taList.anaList.resod.kanoList.count(ag => ag == tl.getAgent)) {
