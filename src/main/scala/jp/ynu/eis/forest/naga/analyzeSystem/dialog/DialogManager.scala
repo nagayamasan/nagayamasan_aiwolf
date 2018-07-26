@@ -12,6 +12,19 @@ class DialogManager{
   val seerList = mutable.MutableList.empty[Agent]
   val wolfList = mutable.MutableList.empty[Agent]
   val possList = mutable.MutableList.empty[Agent]
+  var turn = 0
+
+  def resetTurn: Unit = {
+    turn = 0
+  }
+
+  def addTurn: Unit = {
+    turn += 1
+  }
+
+  def getTurn: Int = {
+    turn
+  }
 
 }
 

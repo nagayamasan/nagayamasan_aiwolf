@@ -12,14 +12,10 @@ import scala.math.random
 import scala.util.Random
 
 case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
-
-  val dm = new DialogManager
-  var turn = 0
   val divineList = mutable.MutableList.empty[Judge]
 
 
   override def update(gameInfo: GameInfo): Unit = {
-    this.gameInfo = gameInfo
     dm.gameInfoList += gameInfo
     if (gameInfo.getDivineResult != null) {
       divineList += gameInfo.getDivineResult
@@ -32,20 +28,19 @@ case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends Na
   }
 
   override def dayStart(): Unit = {
-    turn = 0
+    super.dayStart()
   }
 
   override def talk(): String = {
-    turn += 1
     val spMap = Map("HUMAN" -> "人間", "WEREWOLF" -> "人狼")
-    if(gameInfo.getDay == 1 && turn == 1){
+    if(gameInfo.getDay == 1 && dm.turn == 1){
       return "私は占い師です"
-    }else if(gameInfo.getDay == 1 && turn == 2){
+    }else if(gameInfo.getDay == 1 && dm.turn == 2){
       return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
-    }else if(gameInfo.getDay == 2 && turn == 1){
+    }else if(gameInfo.getDay == 2 && dm.turn == 1){
       return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
     }
-    new PipeLine(gameInfo, dm).getOutput
+    super.talk()
   }
 
   override def vote(): Agent = {
@@ -73,8 +68,7 @@ case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends Na
     if(!candidateAgentList.isEmpty){
       candidateAgentList.get(Random.nextInt(candidateAgentList.size()))
     }else{
-      println("uranaemasenn")
-        null
+      null
     }
 
   }

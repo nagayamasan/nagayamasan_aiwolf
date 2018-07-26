@@ -11,10 +11,7 @@ import scala.math.random
 
 case class NagaVillager(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
 
-  val dm = new DialogManager
-
   override def update(gameInfo: GameInfo): Unit = {
-    this.gameInfo = gameInfo
     dm.gameInfoList += gameInfo
   }
 
@@ -23,11 +20,11 @@ case class NagaVillager(var gameInfo: GameInfo, gameSetting: GameSetting) extend
   }
 
   override def dayStart(): Unit = {
-
+    super.dayStart()
   }
 
   override def talk(): String = {
-    new PipeLine(gameInfo, dm).getOutput
+    super.talk()
   }
 
   override def vote(): Agent = {
