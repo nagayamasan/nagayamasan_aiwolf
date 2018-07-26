@@ -38,7 +38,7 @@ case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extend
     }else if(attackList.size == 1){
       return attackList.head
     }else if(attackList.contains(dm.taList.anaList.resod.kano)){
-      return dm.taList.anaList.resod.kano
+      return dm.taList.anaList.resod.kano.get
     }else{
       return null
     }
@@ -51,7 +51,7 @@ case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extend
     }else if(attackList.size == 1){
       return attackList.head
     }else if(attackList.contains(dm.taList.anaList.resod.kano)){
-      return dm.taList.anaList.resod.kano
+      return dm.taList.anaList.resod.kano.get
     }else{
       return null
     }

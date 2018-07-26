@@ -53,7 +53,43 @@ object OpponentDetective{
           dm.taList.anaList.resod.indigoList += tl.getAgent
         }
     }
-    def getEnemyname(dm: DialogManager): Unit ={
+    def setEnemyname(dm: DialogManager): Unit ={
+      var kanoMax: Int = 0
+      var keldicMax: Int = 0
+      var mcreMax: Int = 0
+      var wordwolfMax: Int = 0
+      var indigoMax: Int = 0
+
+      tlList.foreach {
+        tl =>
+          if(kanoMax < dm.taList.anaList.resod.kanoList.count(ag => ag == tl.getAgent)) {
+            kanoMax = dm.taList.anaList.resod.kanoList.count(ag => ag == tl.getAgent)
+            dm.taList.anaList.resod.kano = Option(tl.getAgent)
+
+          }
+          if(keldicMax < dm.taList.anaList.resod.keldicList.count(ag => ag == tl.getAgent)) {
+            keldicMax = dm.taList.anaList.resod.keldicList.count(ag => ag == tl.getAgent)
+            if(dm.taList.anaList.resod.kano != Option(tl.getAgent)){
+              dm.taList.anaList.resod.keldic = Option(tl.getAgent)
+            }
+          }
+          if(mcreMax < dm.taList.anaList.resod.mcreList.count(ag => ag == tl.getAgent)) {
+            mcreMax = dm.taList.anaList.resod.mcreList.count(ag => ag == tl.getAgent)
+            dm.taList.anaList.resod.mcre = Option(tl.getAgent)
+
+          }
+          if(wordwolfMax < dm.taList.anaList.resod.wordwolfList.count(ag => ag == tl.getAgent)) {
+            mcreMax = dm.taList.anaList.resod.wordwolfList.count(ag => ag == tl.getAgent)
+            dm.taList.anaList.resod.wordWolf = Option(tl.getAgent)
+
+          }
+          else{
+            indigoMax = dm.taList.anaList.resod.indigoList.count(ag => ag == tl.getAgent)
+            dm.taList.anaList.resod.indigo = Option(tl.getAgent)
+
+          }
+
+      }
 
 
     }

@@ -11,6 +11,7 @@ case class PipeLine(gameInfo: GameInfo, dm :DialogManager) {
   var uaResultOpt : Option[UtteranceResult] = Option.empty[UtteranceResult]
   dm.gameInfoList += gameInfo
   dm.taList.collecting(gameInfo)
+
   uaResultOpt = Option(gameInfo.getRole match {
     case Role.SEER => SeerUA(dm).getResult
     case Role.WEREWOLF => WolfUA(dm).getResult
