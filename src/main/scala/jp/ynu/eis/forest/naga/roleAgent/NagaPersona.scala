@@ -25,12 +25,43 @@ trait NagaPersona {
   }
 
   def talk(): String = {
+
     dm.addTurn
-    if(dm.getTurn == TURN_AGENT_ATERU_NUMBER){
-      //OpponentDetective.setEnemyname(dm)
-      //dm.taList.anaList.resod.keldicList.last.toString
-
-
+    if(gameInfo.getDay == 1 && dm.turn == TURN_AGENT_ATERU_NUMBER){
+      OpponentDetective.setEnemyname(dm)
+      var sentence = ""
+      if(dm.taList.anaList.resod.kano.nonEmpty){
+        sentence = dm.taList.anaList.resod.kano.get + "はkanoさんですね。"
+      }
+      if(dm.taList.anaList.resod.keldic.nonEmpty){
+        if(sentence == ""){
+          sentence = dm.taList.anaList.resod.keldic.get + "はkeldicさんですね。"
+        }else{
+          sentence = dm.taList.anaList.resod.keldic.get + "はkeldicさん、" + sentence
+        }
+      }
+      if(dm.taList.anaList.resod.mcre.nonEmpty){
+        if(sentence == ""){
+          sentence = dm.taList.anaList.resod.mcre.get + "はmcreさんですね。"
+        }else{
+          sentence = dm.taList.anaList.resod.mcre.get + "はmcreさん、" + sentence
+        }
+      }
+      if(dm.taList.anaList.resod.wordWolf.nonEmpty){
+        if(sentence == ""){
+          sentence = dm.taList.anaList.resod.wordWolf.get + "はwordWolfさんですね。"
+        }else{
+          sentence = dm.taList.anaList.resod.wordWolf.get + "はwordWolfさん、" + sentence
+        }
+      }
+      if(dm.taList.anaList.resod.indigo.nonEmpty){
+        if(sentence == ""){
+          sentence = dm.taList.anaList.resod.indigo.get + "はindigoさんですね。"
+        }else{
+          sentence = dm.taList.anaList.resod.indigo.get + "はindigoさん、" + sentence
+        }
+      }
+      return sentence
     }
     new PipeLine(gameInfo, dm).getOutput
   }

@@ -31,7 +31,7 @@ case class PipeLine(gameInfo: GameInfo, dm :DialogManager) {
     ugInput = uaResult.response
   }
 
-  val ugResult :String = UtteranceGenerator(ugInput).getResult
+  val ugResult :String = UtteranceGenerator(ugInput, gameInfo).getResult
 
   def getOutput:String={
     ugResult

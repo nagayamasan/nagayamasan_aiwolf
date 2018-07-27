@@ -12,7 +12,7 @@ import scala.math.random
 case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
 
   override def update(gameInfo: GameInfo): Unit = {
-    dm.gameInfoList += gameInfo
+    super.update(gameInfo)
   }
 
   override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {

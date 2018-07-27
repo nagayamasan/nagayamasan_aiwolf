@@ -10,6 +10,7 @@ import scala.collection.mutable
 case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
 
   override def update(gameInfo: GameInfo): Unit = {
+    super.update(gameInfo)
   }
 
   override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {

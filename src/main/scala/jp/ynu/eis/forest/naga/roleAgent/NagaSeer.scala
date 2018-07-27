@@ -16,7 +16,7 @@ case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extend
 
 
   override def update(gameInfo: GameInfo): Unit = {
-    dm.gameInfoList += gameInfo
+    super.update(gameInfo)
     if (gameInfo.getDivineResult != null) {
       divineList += gameInfo.getDivineResult
     }
