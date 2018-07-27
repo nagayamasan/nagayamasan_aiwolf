@@ -1,5 +1,6 @@
 package jp.ynu.eis.forest.naga.roleAgent
 
+import jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine.OpponentDetective
 import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import org.aiwolf.common.data.Agent
@@ -26,6 +27,10 @@ trait NagaPersona {
   def talk(): String = {
     dm.addTurn
     if(dm.getTurn == TURN_AGENT_ATERU_NUMBER){
+      //OpponentDetective.setEnemyname(dm)
+      //dm.taList.anaList.resod.keldicList.last.toString
+
+
     }
     new PipeLine(gameInfo, dm).getOutput
   }

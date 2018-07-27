@@ -46,5 +46,16 @@ class DialogManager{
     }
     mutableList
   }
+
+  def listedAgentName: mutable.MutableList[Agent] ={
+    val agnmList = mutable.MutableList.empty[Agent]
+    agnmList += taList.anaList.resod.kano.get
+    agnmList += taList.anaList.resod.keldic.get
+    agnmList += taList.anaList.resod.mcre.get
+    agnmList += taList.anaList.resod.wordWolf.get
+    agnmList += taList.anaList.resod.indigo.get
+
+    return agnmList
+  }
 }
 

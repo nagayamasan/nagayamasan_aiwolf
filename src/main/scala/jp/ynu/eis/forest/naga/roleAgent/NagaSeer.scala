@@ -11,7 +11,7 @@ import scala.collection.mutable
 import scala.math.random
 import scala.util.Random
 
-case class NagaSeer(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
+case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
   val divineList = mutable.MutableList.empty[Judge]
 
 

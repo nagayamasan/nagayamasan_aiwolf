@@ -7,7 +7,7 @@ import org.aiwolf.common.net.{GameInfo, GameSetting}
 
 import scala.collection.mutable
 
-case class NagaWerewolf(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
+case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
 
   override def update(gameInfo: GameInfo): Unit = {
   }

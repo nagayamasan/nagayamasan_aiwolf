@@ -18,6 +18,7 @@ trait UtteranceAnalyzer {
   if(dm.taList.talkList.nonEmpty){
     spellAnalyze
     seerDetective
+
   }
 
   def getResult: UtteranceResult= {

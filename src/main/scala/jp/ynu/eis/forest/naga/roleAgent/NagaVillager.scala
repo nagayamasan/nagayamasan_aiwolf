@@ -9,7 +9,7 @@ import scala.collection.JavaConversions._
 import scala.collection.mutable
 import scala.math.random
 
-case class NagaVillager(var gameInfo: GameInfo, gameSetting: GameSetting) extends NagaPersona {
+case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
 
   override def update(gameInfo: GameInfo): Unit = {
     dm.gameInfoList += gameInfo
