@@ -8,7 +8,7 @@ import org.aiwolf.common.net.{GameInfo, GameSetting, JudgeToSend}
 case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
   //val blackSeer:Agent =
   override def update(gameInfo: GameInfo): Unit = {
-    this.gameInfo = gameInfo
+    super.update(gameInfo)
   }
 
   override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {

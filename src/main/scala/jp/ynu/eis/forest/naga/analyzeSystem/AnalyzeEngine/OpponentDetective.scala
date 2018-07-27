@@ -51,7 +51,7 @@ object OpponentDetective {
         else {
           dm.taList.anaList.resod.indigoList += tl.getAgent
         }
-        println(dm.taList.anaList.resod.kanoList.isEmpty)
+//        println(dm.taList.anaList.resod.kanoList)
     }
   }
 
