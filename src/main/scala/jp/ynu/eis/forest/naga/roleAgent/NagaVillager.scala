@@ -1,11 +1,12 @@
 package jp.ynu.eis.forest.naga.roleAgent
 
+import scala.util.Random
 import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import org.aiwolf.common.data.{Agent, Species}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
-import scala.collection.JavaConversions._
 
+import scala.collection.JavaConversions._
 import scala.collection.mutable
 import scala.math.random
 
@@ -26,11 +27,26 @@ case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
   override def talk(): String = {
     super.talk()
   }
-
   override def vote(): Agent = {
-    val candidateAgentList = gameInfo.getAliveAgentList
-    candidateAgentList.removeAll(dm.seerList)
-    candidateAgentList.get(candidateAgentList.size() * random().toInt)
+    val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList)
+    dm.seerList.foreach{
+      f =>
+        candidateAgentList.filter(ag => ag== f)
+    }
+    if(candidateAgentList.nonEmpty) {
+      val r = new Random()
+      dm.seerList.foreach{
+        f =>
+          candidateAgentList.filter(ag => ag== f)
+
+      }
+      r.shuffle(candidateAgentList).head
+
+    }
+    else{
+      null
+
+    }
   }
 
   override def finish(): Unit = {

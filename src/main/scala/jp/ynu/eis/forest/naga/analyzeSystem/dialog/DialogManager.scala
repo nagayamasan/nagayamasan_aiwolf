@@ -57,5 +57,15 @@ class DialogManager{
 
     return agnmList
   }
+
+  def callMeCab ={
+    val word = taList.anaList.resm.wordData
+    val wordim = taList.anaList.resm.wordimData
+  }
+  def callCabocha={
+    val word = taList.anaList.resc.wordData
+    val wordim = taList.anaList.resc.wordimData
+
+  }
 }
 

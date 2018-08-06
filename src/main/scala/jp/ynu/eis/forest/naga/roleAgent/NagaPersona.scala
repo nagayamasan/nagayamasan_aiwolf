@@ -3,7 +3,7 @@ package jp.ynu.eis.forest.naga.roleAgent
 import jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine.OpponentDetective
 import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
-import org.aiwolf.common.data.Agent
+import org.aiwolf.common.data.{Agent, Talk}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
 
 trait NagaPersona {
@@ -62,8 +62,18 @@ trait NagaPersona {
         }
       }
       return sentence
+
+    }else if(gameInfo.getDay == 0){
+      if(dm.getTurn == 1) {
+        "お手柔らかに"
+      }else{
+        Talk.OVER
+      }
     }
-    new PipeLine(gameInfo, dm).getOutput
+    else {
+      new PipeLine(gameInfo, dm).getOutput
+
+    }
   }
 
   def vote(): Agent
