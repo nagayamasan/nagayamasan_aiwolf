@@ -7,16 +7,18 @@ import scala.util.Random
 
 case class UtteranceGenerator(answerResult: String, gameInfo: GameInfo) {
 
-  def getResult: String={
-    if(answerResult.nonEmpty){
+  def getResult: String= {
+    val resource = "resource/fact"
+    if (answerResult.nonEmpty) {
       return answerResult
     }
-    val resource = "resource/fact"
-    if(gameInfo.getAgent.toString == "Agent[01]"){
+    else if (gameInfo.getAgent.toString == "Agent[01]") {
+      val resource = "resource/fact"
       val file = Source.fromFile(s"${resource}/kanofact.txt")
       val sentenceList = file.getLines.toList
       sentenceList(Random.nextInt(sentenceList.size))
-    }else if(gameInfo.getAgent.toString == "Agent[02]"){
+    }
+    /*else if(gameInfo.getAgent.toString == "Agent[02]"){
       val file = Source.fromFile(s"${resource}/mcrefact.txt")
       val sentenceList = file.getLines.toList
       sentenceList(Random.nextInt(sentenceList.size))
@@ -28,8 +30,13 @@ case class UtteranceGenerator(answerResult: String, gameInfo: GameInfo) {
       val file = Source.fromFile(s"${resource}/wordwolffact.txt")
       val sentenceList = file.getLines.toList
       sentenceList(Random.nextInt(sentenceList.size))
-    }else{
-      "ながやま草"
+    }
+    */else{
+      val file = Source.fromFile(s"${resource}/naga.txt")
+      val sentenceList = file.getLines.toList
+      sentenceList(Random.nextInt(sentenceList.size))
+
+
     }
   }
 }

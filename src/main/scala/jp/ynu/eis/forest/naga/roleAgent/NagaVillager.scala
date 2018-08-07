@@ -26,6 +26,7 @@ case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
 
   override def talk(): String = {
     super.talk()
+
   }
   override def vote(): Agent = {
     val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList)

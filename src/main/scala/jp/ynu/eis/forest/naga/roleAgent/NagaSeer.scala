@@ -34,13 +34,18 @@ case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extend
   override def talk(): String = {
     val spMap = Map("HUMAN" -> "人間", "WEREWOLF" -> "人狼")
     if(gameInfo.getDay == 1 && dm.turn == 1){
+      dm.addTurn
       return "私は占い師です"
-    }else if(gameInfo.getDay == 1 && dm.turn == 2){
+
+    }else if(gameInfo.getDay == 1 && dm.getTurn == 2){
+      dm.addTurn
       return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
     }else if(gameInfo.getDay == 2 && dm.turn == 1){
+      dm.addTurn
       return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
     }
     super.talk()
+
   }
 
   override def vote(): Agent = {

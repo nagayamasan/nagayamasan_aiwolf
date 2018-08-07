@@ -45,12 +45,15 @@ trait UtteranceAnalyzer {
     val iam = "私".r
     val seer = "占い".r
     val kekka = "結果".r
-    if (reCentTalklist != null) {
+    if (reCentTalklist.nonEmpty) {
       reCentTalklist.foreach{
         f =>
-          if(kekka.findFirstIn(f.getText).nonEmpty){
+          if(seer.findFirstIn(f.getText).nonEmpty){
             dm.seerList += f.getAgent
 
+          }
+          else if(kekka.findFirstIn(f.getText).nonEmpty){
+            dm.seerList += f.getAgent
           }
       }
     }

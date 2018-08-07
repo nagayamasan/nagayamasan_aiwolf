@@ -30,45 +30,48 @@ trait NagaPersona {
     if(gameInfo.getDay == 1 && dm.turn == TURN_AGENT_ATERU_NUMBER){
       OpponentDetective.setEnemyname(dm)
       var sentence = ""
-      if(dm.taList.anaList.resod.kano.nonEmpty){
-        sentence = dm.taList.anaList.resod.kano.get + "はkanoさんですね。"
+      if(dm.taList.anaList.resod.kano.nonEmpty && dm.callkano.get != gameInfo.getAgent){
+        sentence = dm.taList.anaList.resod.kano.get + "はkanoさんみたいな話し方をされますね。"
       }
       if(dm.taList.anaList.resod.keldic.nonEmpty){
-        if(sentence == ""){
-          sentence = dm.taList.anaList.resod.keldic.get + "はkeldicさんですね。"
+        if(sentence.isEmpty){
+          sentence = dm.taList.anaList.resod.keldic.get + "はいつぞやのkeldicさんみたいですね。"
         }else{
           sentence = dm.taList.anaList.resod.keldic.get + "はkeldicさん、" + sentence
         }
       }
       if(dm.taList.anaList.resod.mcre.nonEmpty){
         if(sentence == ""){
-          sentence = dm.taList.anaList.resod.mcre.get + "はmcreさんですね。"
+          sentence = dm.taList.anaList.resod.mcre.get + "はひょっとするとmcreさんですか。"
         }else{
           sentence = dm.taList.anaList.resod.mcre.get + "はmcreさん、" + sentence
         }
       }
       if(dm.taList.anaList.resod.wordWolf.nonEmpty){
         if(sentence == ""){
-          sentence = dm.taList.anaList.resod.wordWolf.get + "はwordWolfさんですね。"
+          sentence = dm.taList.anaList.resod.wordWolf.get + "はもしかしてwordWolfさんですか。"
         }else{
           sentence = dm.taList.anaList.resod.wordWolf.get + "はwordWolfさん、" + sentence
         }
       }
-      if(dm.taList.anaList.resod.indigo.nonEmpty){
+      if(dm.taList.anaList.resod.indigo.nonEmpty && dm.taList.anaList.resod.indigo != gameInfo.getAgent ){
         if(sentence == ""){
-          sentence = dm.taList.anaList.resod.indigo.get + "はindigoさんですね。"
+          sentence = dm.taList.anaList.resod.indigo.get + "はどこかで聞いたことある話し方をしますね。"
         }else{
-          sentence = dm.taList.anaList.resod.indigo.get + "はindigoさん、" + sentence
+          sentence = dm.taList.anaList.resod.indigo.get + "はどこかで聞いたことある話し方をしますね。" + sentence
         }
       }
       return sentence
 
     }else if(gameInfo.getDay == 0){
       if(dm.getTurn == 1) {
-        "お手柔らかに"
+        "お手柔らかにお願いします。"
       }else{
         Talk.OVER
       }
+    }
+    else if(dm.taList.anaList.resod.kano.nonEmpty && dm.seerList.contains(dm.taList.anaList.resod.kano)){
+      "kanoさん、あんた本物だよ"
     }
     else {
       new PipeLine(gameInfo, dm).getOutput

@@ -48,7 +48,7 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
       return null
     }else if(attackList.size == 1){
       return attackList.head
-    }else if(attackList.contains(dm.taList.anaList.resod.kano)){
+    }else if(attackList.contains(dm.callkano)){
       return dm.taList.anaList.resod.kano.get
     }else{
       return null

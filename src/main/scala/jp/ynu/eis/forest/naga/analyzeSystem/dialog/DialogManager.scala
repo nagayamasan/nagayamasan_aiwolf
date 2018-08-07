@@ -67,5 +67,22 @@ class DialogManager{
     val wordim = taList.anaList.resc.wordimData
 
   }
+  def callkano: Option[Agent] ={
+    taList.anaList.resod.kano
+
+  }
+  def callkeldic: Unit = {
+    taList.anaList.resod.keldic
+
+  }
+  def callmcre: Option[Agent] ={
+    taList.anaList.resod.mcre
+
+  }
+  def callwordWlof: Option[Agent] ={
+    taList.anaList.resod.wordWolf
+
+  }
+
 }
 
