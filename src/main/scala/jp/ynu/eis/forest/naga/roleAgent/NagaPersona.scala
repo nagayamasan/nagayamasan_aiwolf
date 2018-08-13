@@ -25,7 +25,7 @@ trait NagaPersona {
   }
 
   def talk(): String = {
-
+    //println("speak")
     dm.addTurn
     if(gameInfo.getDay == 1 && dm.turn == TURN_AGENT_ATERU_NUMBER){
       OpponentDetective.setEnemyname(dm)
@@ -54,7 +54,14 @@ trait NagaPersona {
           sentence = dm.taList.anaList.resod.wordWolf.get + "はwordWolfさん、" + sentence
         }
       }
-      if(dm.taList.anaList.resod.indigo.nonEmpty && dm.taList.anaList.resod.indigo != gameInfo.getAgent ){
+      if(dm.taList.anaList.resod.udon.nonEmpty){
+        if(sentence == ""){
+          sentence = dm.taList.anaList.resod.wordWolf.get + "はもしかしてwordWolfさんですか。"
+        }else{
+          sentence = dm.taList.anaList.resod.wordWolf.get + "はwordWolfさん、" + sentence
+        }
+      }
+      if(dm.taList.anaList.resod.indigo.nonEmpty && dm.taList.anaList.resod.indigo.get != gameInfo.getAgent ){
         if(sentence == ""){
           sentence = dm.taList.anaList.resod.indigo.get + "はどこかで聞いたことある話し方をしますね。"
         }else{
@@ -71,7 +78,8 @@ trait NagaPersona {
       }
     }
     else if(dm.taList.anaList.resod.kano.nonEmpty && dm.seerList.contains(dm.taList.anaList.resod.kano)){
-      "kanoさん、あんた本物だよ"
+      dm.callkano + "は真か狼だよ"
+
     }
     else {
       new PipeLine(gameInfo, dm).getOutput

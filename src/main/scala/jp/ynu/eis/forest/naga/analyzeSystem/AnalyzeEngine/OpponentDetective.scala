@@ -16,14 +16,27 @@ object OpponentDetective {
   val McreSource = Source.fromFile(s"${sourceDir}/mcrefact.txt")
   val WordWolfSource = Source.fromFile(s"${sourceDir}/wordwolffact.txt")
 
+  val UdonSource = Source.fromFile(s"${sourceDir}/udonfact.txt")
+  val RosenblattSource = Source.fromFile(s"${sourceDir}/rosenblattfact.txt")
+  val Fuku6uSource = Source.fromFile(s"${sourceDir}/fuku6ufact.txt")
+  val AriesSource = Source.fromFile(s"${sourceDir}/ariesfact.txt")
+  val CanisSource = Source.fromFile(s"${sourceDir}/canisLupusfact.txt")
+
   val kanoLines = KanoSource.getLines.toList
   val keldicLines = KeldicSource.getLines.toList
   val mcreLines = McreSource.getLines.toList
   val wordwolfLines = WordWolfSource.getLines.toList
 
+  val UdonLines = UdonSource.getLines.toList
+  val RosenLines = RosenblattSource.getLines.toList
+  val FukuLines = Fuku6uSource.getLines.toList
+  val AriesLines = AriesSource.getLines.toList
+  val CanisLines = CanisSource.getLines.toList
+
+
   def collectEnemyName(dm: DialogManager): Unit = {
     val tlList = dm.taList.talkList.takeRight(4)
-    val odList = dm.taList.anaList.resod
+    //val odList = dm.taList.anaList.resod
 
     tlList.foreach {
       tl =>
@@ -48,9 +61,31 @@ object OpponentDetective {
           dm.taList.anaList.resod.wordWolfList += tl.getAgent
 
         }
+        if (UdonLines.contains(tl00)) {
+          dm.taList.anaList.resod.udonList += tl.getAgent
+
+        }
+        if (RosenLines.contains(tl00)) {
+          dm.taList.anaList.resod.rosenList += tl.getAgent
+
+        }
+        if (FukuLines.contains(tl00)) {
+          dm.taList.anaList.resod.fukuList += tl.getAgent
+
+        }
+        if (AriesLines.contains(tl00)) {
+          dm.taList.anaList.resod.ariesList += tl.getAgent
+
+        }
+        if (CanisLines.contains(tl00)) {
+          dm.taList.anaList.resod.cainsList += tl.getAgent
+
+        }
+
         else {
           dm.taList.anaList.resod.indigoList += tl.getAgent
         }
+
 //        println(dm.taList.anaList.resod.kanoList)
     }
   }
@@ -114,25 +149,67 @@ object OpponentDetective {
     }
     agentList = agentList.filter(f => f != tag)
     Max = 0
+
+    agentList.foreach {
+      ag =>
+        if (Max < dm.taList.anaList.resod.udonList.count(nameag => nameag == ag)) {
+          Max = dm.taList.anaList.resod.udonList.count(nameag => nameag == ag)
+          dm.taList.anaList.resod.udon = Option(ag)
+          tag = ag
+        }
+    }
+    agentList = agentList.filter(f => f != tag)
+    Max = 0
+
+    agentList.foreach {
+      ag =>
+        if (Max < dm.taList.anaList.resod.rosenList.count(nameag => nameag == ag)) {
+          Max = dm.taList.anaList.resod.rosenList.count(nameag => nameag == ag)
+          dm.taList.anaList.resod.rosen = Option(ag)
+          tag = ag
+        }
+    }
+    agentList = agentList.filter(f => f != tag)
+    Max = 0
+
+    agentList.foreach {
+      ag =>
+        if (Max < dm.taList.anaList.resod.fukuList.count(nameag => nameag == ag)) {
+          Max = dm.taList.anaList.resod.fukuList.count(nameag => nameag == ag)
+          dm.taList.anaList.resod.fuku = Option(ag)
+          tag = ag
+        }
+    }
+    agentList = agentList.filter(f => f != tag)
+    Max = 0
+
+    agentList.foreach {
+      ag =>
+        if (Max < dm.taList.anaList.resod.ariesList.count(nameag => nameag == ag)) {
+          Max = dm.taList.anaList.resod.ariesList.count(nameag => nameag == ag)
+          dm.taList.anaList.resod.aries = Option(ag)
+          tag = ag
+        }
+    }
+    agentList = agentList.filter(f => f != tag)
+    Max = 0
+
+    agentList.foreach {
+      ag =>
+        if (Max < dm.taList.anaList.resod.cainsList.count(nameag => nameag == ag)) {
+          Max = dm.taList.anaList.resod.cainsList.count(nameag => nameag == ag)
+          dm.taList.anaList.resod.cains = Option(ag)
+          tag = ag
+        }
+    }
+    agentList = agentList.filter(f => f != tag)
+    Max = 0
+
     dm.taList.anaList.resod.indigo = Option(agentList.last)
 
   }
 
 
-  //      val kano: Agent = dm.taList.anaList.resod.kanoList.maxBy(ag => dm.taList.anaList.resod.kanoList.count(kanoag => ag == kanoag))
-  //      dm.taList.anaList.resod.kano = Option(kano)
-  //      agentList = agentList.filter(ag => ag != kano)
-  //
-  //      dm.taList.anaList.resod.keldicList = dm.taList.anaList.resod.keldicList.filter(f => f != kano)
-  //
-  //      val keldic: Agent = dm.taList.anaList.resod.keldicList.maxBy(ag => dm.taList.anaList.resod.keldicList.count(kanoag => ag == kanoag))
-  //      dm.taList.anaList.resod.keldic = Option(keldic)
-  //
-  //      dm.taList.anaList.resod.mcreList = dm.taList.anaList.resod.mcreList.filter(f => f != kano)
-  //      dm.taList.anaList.resod.mcreList = dm.taList.anaList.resod.mcreList.filter(f => f != keldic)
-  //      dm.taList.anaList.resod.mcreList.maxBy(ag => dm.taList.anaList.resod.mcreList.count(kanoag => ag == kanoag))
-  //      val keldic: Agent = dm.taList.anaList.resod.keldicList.maxBy(ag => dm.taList.anaList.resod.keldicList.count(kanoag => ag == kanoag))
-  //      dm.taList.anaList.resod.keldic = Option(keldic)
 
 
 }
@@ -142,7 +219,20 @@ object OpponentDetective {
 
 
 
-
+//      val kano: Agent = dm.taList.anaList.resod.kanoList.maxBy(ag => dm.taList.anaList.resod.kanoList.count(kanoag => ag == kanoag))
+//      dm.taList.anaList.resod.kano = Option(kano)
+//      agentList = agentList.filter(ag => ag != kano)
+//
+//      dm.taList.anaList.resod.keldicList = dm.taList.anaList.resod.keldicList.filter(f => f != kano)
+//
+//      val keldic: Agent = dm.taList.anaList.resod.keldicList.maxBy(ag => dm.taList.anaList.resod.keldicList.count(kanoag => ag == kanoag))
+//      dm.taList.anaList.resod.keldic = Option(keldic)
+//
+//      dm.taList.anaList.resod.mcreList = dm.taList.anaList.resod.mcreList.filter(f => f != kano)
+//      dm.taList.anaList.resod.mcreList = dm.taList.anaList.resod.mcreList.filter(f => f != keldic)
+//      dm.taList.anaList.resod.mcreList.maxBy(ag => dm.taList.anaList.resod.mcreList.count(kanoag => ag == kanoag))
+//      val keldic: Agent = dm.taList.anaList.resod.keldicList.maxBy(ag => dm.taList.anaList.resod.keldicList.count(kanoag => ag == kanoag))
+//      dm.taList.anaList.resod.keldic = Option(keldic)
 
 
 

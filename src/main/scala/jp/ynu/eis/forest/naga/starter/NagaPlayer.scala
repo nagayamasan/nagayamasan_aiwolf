@@ -29,6 +29,7 @@ object NagaPlayer {
     var i = 0
     while (i < 5) {
       nl.add(new NagaPlayer)
+      //hostをいじる
       cl.add(new TcpipClient("localhost", 10000))
       cl.get(i).connect(nl.get(i))
 
@@ -42,7 +43,7 @@ class NagaPlayer extends Player {
   private var playerOpt: Option[NagaPersona]  = Option.empty[NagaPersona]
 
   override def getName: String = {
-    "naga"
+    "forstsan"
   }
   override def update(gameInfo: GameInfo): Unit = {
     playerOpt match {
