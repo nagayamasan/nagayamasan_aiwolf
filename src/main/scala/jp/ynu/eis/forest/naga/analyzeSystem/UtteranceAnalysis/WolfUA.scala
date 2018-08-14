@@ -26,7 +26,7 @@ case class WolfUA(dm: DialogManager) extends UtteranceAnalyzer {
     Option(reCentTalklist) match {
       case Some(list: mutable.MutableList[Talk]) =>
         reCentTalklist.foreach(f => {
-          if (f.getText.contains(possesedWord)) {
+          if (f.getText.contains(possesedWord) && f.getDay == 2) {
             dm.possList += f.getAgent
           }
         })

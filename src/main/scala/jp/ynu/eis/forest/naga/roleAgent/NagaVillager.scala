@@ -27,6 +27,8 @@ case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
   override def talk(): String = {
     if(gameInfo.getDay == 2 && dm.turn == 1){
       dm.addTurn
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
       return "あ、どーも私が狼です。"
     }
     super.talk()

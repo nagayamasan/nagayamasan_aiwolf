@@ -38,6 +38,14 @@ class DialogManager{
     }
     mutableList
   }
+  def talkListChange(javalist: util.List[Talk]): mutable.MutableList[Talk]={
+    val mutableList = mutable.MutableList.empty[Talk]
+    javalist.forEach{
+      element =>
+        mutableList += element
+    }
+    mutableList
+  }
   def roleListChange(javalist: util.List[Role]): mutable.MutableList[Role]= {
     val mutableList = mutable.MutableList.empty[Role]
     javalist.forEach {

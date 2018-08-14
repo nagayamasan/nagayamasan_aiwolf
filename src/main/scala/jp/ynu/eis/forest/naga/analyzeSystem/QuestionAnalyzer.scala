@@ -15,9 +15,10 @@ case class QuestionAnalyzer(ur: UtteranceResult){
         questionClass("role") = true
       }
       if(f.contains("投票")){
+        println("あるよ")
         questionClass("vote") = true
       }
-      if(f.contains("どうして")){
+      if(f.contains("どうして") || f.contains("なぜ")){
         questionClass("reason") = true
       }
       if(f.contains("誰が")){

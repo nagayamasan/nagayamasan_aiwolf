@@ -8,7 +8,6 @@ import org.aiwolf.common.net.{GameInfo, GameSetting}
 import scala.collection.mutable
 
 case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
-
   override def update(gameInfo: GameInfo): Unit = {
     super.update(gameInfo)
   }
@@ -22,7 +21,16 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
   }
 
   override def talk(): String = {
+
+    if(gameInfo.getDay == 2 && dm.possList.nonEmpty){
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
+      dm.getTurn
+
+      return "狂人把握した"
+    }
     super.talk()
+
   }
 
   def whisper(): String = {
@@ -37,7 +45,11 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
       return attackList.head
     }else if(attackList.contains(dm.taList.anaList.resod.kano)){
       return dm.taList.anaList.resod.kano.get
-    }else{
+
+    }else if(dm.gameInfoList.last.getDay == 2 && dm.possList.nonEmpty){
+      agentList.filter(_ != dm.possList.head).last
+
+    } else{
       return null
     }
   }

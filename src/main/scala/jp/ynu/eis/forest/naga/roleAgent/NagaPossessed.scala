@@ -9,7 +9,7 @@ import scala.collection.mutable
 import scala.util.Random
 
 case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
-  val agentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(el => gameInfo.getAgent != el)
+  val blackTarget = Random.shuffle(agentList).head
 
   override def update(gameInfo: GameInfo): Unit = {
     super.update(gameInfo)
@@ -26,24 +26,37 @@ case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) e
   override def talk(): String = {
     val judgeList = mutable.MutableList("人狼","黒")
 
-    if(gameInfo.getDay == 1 && dm.turn == 1){
+    if(gameInfo.getDay == 1 && dm.turn == 0){
       dm.addTurn
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
       return "私は占い師です"
 
-    }else if(gameInfo.getDay == 1 && dm.getTurn == 2){
+    }else if(gameInfo.getDay == 1 && dm.getTurn == 1){
       dm.addTurn
-      return "占いの結果" + Random.shuffle(agentList).head + "は" + Random.shuffle(judgeList).head + "でした。"
-    }else if(gameInfo.getDay == 2 && dm.turn == 1){
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
+
+      return "誠に残念ながら" + blackTarget + "は" + Random.shuffle(judgeList).head + "でした。"
+    }else if(gameInfo.getDay == 2 && dm.turn == 0){
       dm.addTurn
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
+
       return "あ、どーも僕が狂人です。"
     }
     super.talk()
   }
 
   override def vote(): Agent = {
-   val votelist = dm.seerList.filter(_ != gameInfo.getAgent)
+    val votelist: mutable.MutableList[Agent] = dm.seerList.filter(_ != gameInfo.getAgent)
+
     if(votelist.isEmpty){
-      Random.shuffle(agentList).head
+      blackTarget
+    }
+    else if(dm.gameInfoList.last.getDay == 2 && dm.wolfList.nonEmpty){
+      agentList.filter(_ != dm.wolfList.head).last
+
     }
     else votelist.last
 

@@ -10,7 +10,7 @@ case class UtteranceGenerator(answerResult: String, dm: DialogManager) {
 
   def getResult: String= {
     val coin = List(true,false)
-    val resource = "resource/fact"
+    val resource = "resource"
     val agentList = dm.agentListChange(dm.gameInfoList.last.getAliveAgentList).filter{
       f => f != dm.gameInfoList.last.getAgent
     }
@@ -18,13 +18,13 @@ case class UtteranceGenerator(answerResult: String, dm: DialogManager) {
     if (answerResult.nonEmpty) {
       return answerResult
     }
-    else if (dm.gameInfoList.last.getAgent.toString == "Agent[01]") {
-      val resource = "resource/fact"
-      val file = Source.fromFile(s"${resource}/kanofact.txt")
+    /*else if (dm.gameInfoList.last.getAgent.toString == "Agent[01]") {
+      val file = Source.fromFile(s"${resource}/fact/kanofact.txt")
       val sentenceList = file.getLines.toList
       sentenceList(Random.nextInt(sentenceList.size))
+
     }
-    /*else if(gameInfo.getAgent.toString == "Agent[02]"){
+    else if(gameInfo.getAgent.toString == "Agent[02]"){
       val file = Source.fromFile(s"${resource}/mcrefact.txt")
       val sentenceList = file.getLines.toList
       sentenceList(Random.nextInt(sentenceList.size))

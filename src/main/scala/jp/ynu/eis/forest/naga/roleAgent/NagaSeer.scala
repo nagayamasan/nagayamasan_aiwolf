@@ -33,14 +33,20 @@ case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extend
 
   override def talk(): String = {
     val spMap = Map("HUMAN" -> "人間", "WEREWOLF" -> "人狼")
-    if(gameInfo.getDay == 1 && dm.turn == 1){
+    if(gameInfo.getDay == 1 && dm.turn == 0){
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
       dm.addTurn
       return "私は占い師です"
 
-    }else if(gameInfo.getDay == 1 && dm.getTurn == 2){
+    }else if(gameInfo.getDay == 1 && dm.getTurn == 1){
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
       dm.addTurn
       return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
-    }else if(gameInfo.getDay == 2 && dm.turn == 1){
+    }else if(gameInfo.getDay == 2 && dm.getTurn == 1){
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
       dm.addTurn
       return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
     }
@@ -63,17 +69,13 @@ case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extend
   }
 
   def divine(): Agent = {
-    val candidateAgentList: util.List[Agent] = gameInfo.getAliveAgentList
+    val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(_ != gameInfo.getAgent)
 
-    if (divineList.nonEmpty) {
-      divineList.foreach(f => {
-        candidateAgentList.remove(f.getTarget)
-      })
-    }
-    if(!candidateAgentList.isEmpty){
-      candidateAgentList.get(Random.nextInt(candidateAgentList.size()))
+    if(candidateAgentList.nonEmpty){
+      Random.shuffle(candidateAgentList).head
     }else{
       null
+      //Random.shuffle(candidateAgentList).head
     }
 
   }
