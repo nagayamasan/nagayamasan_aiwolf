@@ -2,36 +2,26 @@ package jp.ynu.eis.forest.naga.starter
 
 import java.util
 
-import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
+import jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine.OpponentDetective
 import jp.ynu.eis.forest.naga.roleAgent._
 import org.aiwolf.common.data.{Agent, Player, Role, Talk}
 import org.aiwolf.common.net.{GameInfo, GameSetting, TcpipClient}
-import org.jsoup._
-import us.feliscat.text.{StringOption, StringSome}
-import us.feliscat.text.analyzer.dep.cabocha.CaboCha
-import us.feliscat.text.analyzer.mor.mecab.IpadicMecab
 
-import scala.collection.{immutable, mutable}
-import scala.io.Source
-import scala.sys.process._
-import scala.util.matching.Regex
 
 object NagaPlayer {
   def main(args: Array[String]): Unit = {
 
-
-    //val serv = new Thread(new Server)
-    //serv.start()
-    //ugly code
-    //serv.join(1000)
-
+    //テキストファイルの読み込みをコネクション確立前に行う
+    println("file loading...")
+    OpponentDetective.inputTextResources()
+    println("success.")
     val nl = new util.ArrayList[NagaPlayer]
     val cl = new util.ArrayList[TcpipClient]
     var i = 0
     while (i < 1) {
       nl.add(new NagaPlayer)
       //hostをいじる
-      cl.add(new TcpipClient("kanolab.net", 10000))
+      cl.add(new TcpipClient("localhost", 10000))
       cl.get(i).connect(nl.get(i))
 
       i += 1
