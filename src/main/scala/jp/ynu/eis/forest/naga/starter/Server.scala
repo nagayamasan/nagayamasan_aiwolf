@@ -1,11 +1,8 @@
 package jp.ynu.eis.forest.naga.starter
 
 import java.io.IOException
-import java.util
 import java.util.Random
-
-import jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine.OpponentDetective
-import org.aiwolf.common.net.{GameSetting, TcpipClient}
+import org.aiwolf.common.net.GameSetting
 import org.aiwolf.server.AIWolfGame
 import org.aiwolf.server.net.TcpipServer
 
