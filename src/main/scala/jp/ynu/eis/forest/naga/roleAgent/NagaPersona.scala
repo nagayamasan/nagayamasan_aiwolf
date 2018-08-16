@@ -12,6 +12,7 @@ trait NagaPersona {
   var gameInfo: GameInfo
   var gameSetting: GameSetting
   val TURN_AGENT_ATERU_NUMBER = 3
+  val VoteDecideTurn = 8
   val agentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(el => gameInfo.getAgent != el)
 
   def update(gameInfo: GameInfo): Unit = {
@@ -28,12 +29,18 @@ trait NagaPersona {
     //println("speak")
     dm.addTurn
 
-    if(gameInfo.getDay == 1 && dm.getTurn == 0){
+    if(gameInfo.getDay == 1 && dm.getTurn == 1){
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
 
       return "おはよう。占い師いる？"
 
+    }
+    else if (gameInfo.getDay == 2 && dm.getTurn == 1){
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
+
+      return "おはよう。二日目の朝が来てしまった。"
     }
     else if(gameInfo.getDay == 1 && dm.getTurn == TURN_AGENT_ATERU_NUMBER){
       dm.gameInfoList += gameInfo
@@ -67,9 +74,9 @@ trait NagaPersona {
       }
       if(dm.taList.anaList.resod.udon.nonEmpty){
         if(sentence == ""){
-          sentence = dm.taList.anaList.resod.wordWolf.get + "はもしかしてwordWolfさんですか。"
+          sentence = dm.taList.anaList.resod.wordWolf.get + "はもしかしてUdonさんですか。"
         }else{
-          sentence = dm.taList.anaList.resod.wordWolf.get + "はwordWolfさん、" + sentence
+          sentence = dm.taList.anaList.resod.wordWolf.get + "はUdonさん、" + sentence
         }
       }
       if(dm.taList.anaList.resod.indigo.nonEmpty && dm.taList.anaList.resod.indigo.get != gameInfo.getAgent ){
@@ -81,7 +88,8 @@ trait NagaPersona {
       }
       return sentence
 
-    }else if(gameInfo.getDay == 0){
+    }
+    else if(gameInfo.getDay == 0){
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
 
@@ -97,6 +105,9 @@ trait NagaPersona {
 
       return dm.callkano + "は真か狼だよ"
 
+    }
+    else if(dm.talkListChange(gameInfo.getTalkList).last.getTurn == VoteDecideTurn){
+      Talk.OVER
     }
     else{
       new PipeLine(gameInfo, dm).getOutput

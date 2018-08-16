@@ -7,13 +7,17 @@ import scala.collection.mutable
 
 
 case class UtteranceResult(dm: DialogManager, needQA: Boolean, response: String) {
-  val reCentTalkList = dm.taList.talkList.takeRight(4)
-  val question = "\\?".r
+  val reCentTalkList = dm.taList.talkList.filter(_.getTurn == dm.taList.talkList.last.getTurn)
+
+  //val reCentTalkList = dm.taList.talkList.takeRight(dm.gameInfoList.last.getAliveAgentList.size - 1)//自分いらない
+
+  val question = dm.questionRegex
   val questionList = mutable.MutableList.empty[Talk]
   reCentTalkList.foreach{
      text =>
-       if(question.findFirstIn(text.getText) != None){
+       if(question.findFirstIn(text.getText).isDefined && text.getText.contains(">>" + dm.gameInfoList.last.getAgent)){
          questionList += text
+
        }
 
    }

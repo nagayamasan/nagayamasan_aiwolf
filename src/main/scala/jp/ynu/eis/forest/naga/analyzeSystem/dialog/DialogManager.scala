@@ -16,6 +16,7 @@ class DialogManager{
   val seerList = mutable.MutableList.empty[Agent]
   val wolfList = mutable.MutableList.empty[Agent]
   val possList = mutable.MutableList.empty[Agent]
+  val questionRegex = """？|\?""".r
   var turn = 0
 
   def resetTurn: Unit = {

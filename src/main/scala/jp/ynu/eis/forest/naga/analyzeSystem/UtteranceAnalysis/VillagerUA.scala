@@ -8,7 +8,6 @@ import scala.collection.mutable
 case class VillagerUA(dm: DialogManager) extends UtteranceAnalyzer {
   seerDetective
   wolfDetective
-
   //opponentDetective
   override def getResult: UtteranceResult ={
     super.getResult

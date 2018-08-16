@@ -29,25 +29,35 @@ case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
       dm.addTurn
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
-      return "あ、どーも私が狼です。"
+      return "あ、どーも私が人狼です。"
+    }
+    else if(gameInfo.getDay == 1 && dm.getTurn == VoteDecideTurn){
+      dm.addTurn
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
+      if(vote != null && vote != gameInfo.getAgent){
+        return vote.toString + "に投票するわ。"
+      }
+      else{
+        return "投票先絞れない。"
+      }
     }
     super.talk()
 
   }
   override def vote(): Agent = {
-    val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList)
+    val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(_ != gameInfo.getAgent)
     dm.seerList.foreach{
       f =>
         candidateAgentList.filter(ag => ag== f)
     }
     if(candidateAgentList.nonEmpty) {
-      val r = new Random()
       dm.seerList.foreach{
         f =>
           candidateAgentList.filter(ag => ag== f)
 
       }
-      r.shuffle(candidateAgentList).head
+      Random.shuffle(candidateAgentList).head
 
     }
 

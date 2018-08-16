@@ -20,17 +20,18 @@ object NagaPlayer {
   def main(args: Array[String]): Unit = {
 
 
-    val serv = new Thread(new Server)
-    serv.start()
+    //val serv = new Thread(new Server)
+    //serv.start()
     //ugly code
-    serv.join(1000)
+    //serv.join(1000)
+
     val nl = new util.ArrayList[NagaPlayer]
     val cl = new util.ArrayList[TcpipClient]
     var i = 0
-    while (i < 5) {
+    while (i < 1) {
       nl.add(new NagaPlayer)
       //hostをいじる
-      cl.add(new TcpipClient("localhost", 10000))
+      cl.add(new TcpipClient("kanolab.net", 10000))
       cl.get(i).connect(nl.get(i))
 
       i += 1

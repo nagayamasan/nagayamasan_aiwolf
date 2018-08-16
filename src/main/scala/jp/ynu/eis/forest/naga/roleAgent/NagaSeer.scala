@@ -6,9 +6,7 @@ import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import org.aiwolf.common.data.{Agent, Judge, Role, Species}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
-
 import scala.collection.mutable
-import scala.math.random
 import scala.util.Random
 
 case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
@@ -50,6 +48,17 @@ case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extend
       dm.addTurn
       return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
     }
+    else if(gameInfo.getDay == 1 && dm.getTurn == VoteDecideTurn){
+      dm.addTurn
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
+      if(vote != null && vote != gameInfo.getAgent){
+        return vote.toString + "に投票するわ。"
+      }
+      else{
+        return "投票先絞れない。"
+      }
+    }
     super.talk()
 
   }
@@ -70,10 +79,12 @@ case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extend
 
   def divine(): Agent = {
     val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(_ != gameInfo.getAgent)
+    //println(candidateAgentList)
 
     if(candidateAgentList.nonEmpty){
       Random.shuffle(candidateAgentList).head
     }else{
+      println("iru")
       null
       //Random.shuffle(candidateAgentList).head
     }

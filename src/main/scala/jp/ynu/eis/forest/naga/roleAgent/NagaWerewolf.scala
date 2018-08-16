@@ -21,13 +21,26 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
   }
 
   override def talk(): String = {
+    var flag = true
 
-    if(gameInfo.getDay == 2 && dm.possList.nonEmpty){
+    if(gameInfo.getDay == 2 && dm.possList.nonEmpty && flag){
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
       dm.getTurn
+      flag = false
 
       return "狂人把握した"
+    }
+    else if(gameInfo.getDay == 1 && dm.getTurn == VoteDecideTurn){
+      dm.addTurn
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
+      if(vote != null && vote != gameInfo.getAgent){
+        return vote.toString + "に投票するわ。"
+      }
+      else{
+        return "投票先絞れない。"
+      }
     }
     super.talk()
 

@@ -30,7 +30,7 @@ case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) e
       dm.addTurn
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
-      return "私は占い師です"
+      return "私は占い師です。"
 
     }else if(gameInfo.getDay == 1 && dm.getTurn == 1){
       dm.addTurn
@@ -44,6 +44,17 @@ case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) e
       dm.taList.collecting(gameInfo)
 
       return "あ、どーも僕が狂人です。"
+    }
+    else if(gameInfo.getDay == 1 && dm.getTurn == VoteDecideTurn){
+      dm.addTurn
+      dm.gameInfoList += gameInfo
+      dm.taList.collecting(gameInfo)
+      if(vote != null && vote != gameInfo.getAgent){
+        return vote.toString + "に投票するわ。"
+      }
+      else{
+        return "投票先絞れない。"
+      }
     }
     super.talk()
   }
