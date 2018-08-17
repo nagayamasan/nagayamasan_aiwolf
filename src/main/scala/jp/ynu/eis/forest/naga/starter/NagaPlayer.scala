@@ -2,42 +2,38 @@ package jp.ynu.eis.forest.naga.starter
 
 import java.util
 
-import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
+import jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine.OpponentDetective
 import jp.ynu.eis.forest.naga.roleAgent._
 import org.aiwolf.common.data.{Agent, Player, Role, Talk}
 import org.aiwolf.common.net.{GameInfo, GameSetting, TcpipClient}
-import org.jsoup._
-import us.feliscat.text.{StringOption, StringSome}
-import us.feliscat.text.analyzer.dep.cabocha.CaboCha
-import us.feliscat.text.analyzer.mor.mecab.IpadicMecab
 
-import scala.collection.{immutable, mutable}
-import scala.io.Source
-import scala.sys.process._
-import scala.util.matching.Regex
 
 object NagaPlayer {
-  def main(args: Array[String]): Unit = {
 
-
-    //val serv = new Thread(new Server)
-    //serv.start()
-    //ugly code
-    //serv.join(1000)
-
-    val nl = new util.ArrayList[NagaPlayer]
-    val cl = new util.ArrayList[TcpipClient]
+  def clientStart(clientNumber : Int) :Unit={
+    //テキストファイルの読み込みをコネクション確立前に行う
+    println("file loading...")
+    OpponentDetective.inputTextResources()
+    println("success.")
+    val nagaPlayers = new util.ArrayList[NagaPlayer]
+    val tcpipClients = new util.ArrayList[TcpipClient]
     var i = 0
-    while (i < 1) {
-      nl.add(new NagaPlayer)
+    while (i < clientNumber) {
+      nagaPlayers.add(new NagaPlayer)
       //hostをいじる
-      cl.add(new TcpipClient("kanolab.net", 10000))
-      cl.get(i).connect(nl.get(i))
+      tcpipClients.add(new TcpipClient("localhost", 10000))
+      tcpipClients.get(i).connect(nagaPlayers.get(i))
 
       i += 1
 
-
     }
+  }
+
+
+  def main(args: Array[String]): Unit = {
+
+    clientStart(1)
+
   }
 }
 class NagaPlayer extends Player {
@@ -63,20 +59,25 @@ class NagaPlayer extends Player {
       case Role.VILLAGER => NagaVillager(gameInfo,gameSetting)
       case _ => NagaVillager(gameInfo,gameSetting)
     })
-
+    println(s"init : I(${gameInfo.getAgent}) am ${gameInfo.getRole}.")
     playerOpt.get.initialize(gameInfo,gameSetting)
   }
 
-  override def dayStart(): Unit = playerOpt match {
+  override def dayStart(): Unit = {
+    println("***day start***")
+    playerOpt match {
     case Some(player: NagaPersona) =>
       player.dayStart()
     case _ =>
+  }
   }
 
   override def talk(): String = {
     playerOpt match {
       case Some(player: NagaPersona) =>
-        player.talk()
+        val ret = player.talk()
+        println(s"talk : $ret")
+        ret
       case _ => Talk.SKIP
     }
   }
@@ -92,7 +93,9 @@ class NagaPlayer extends Player {
   override def vote(): Agent = {
     playerOpt match {
       case Some(player: NagaPersona) =>
-        player.vote()
+        val ret = player.vote()
+        println(s"vote : $ret")
+        ret
       case _ => null
     }
   }
@@ -100,7 +103,9 @@ class NagaPlayer extends Player {
   override def attack(): Agent = {
     playerOpt match {
       case Some(werewolf: NagaWerewolf) =>
-        werewolf.attack()
+        val ret = werewolf.attack()
+        println(s"attack : $ret")
+        ret
       case _ => null
     }
   }
@@ -108,7 +113,9 @@ class NagaPlayer extends Player {
   override def divine(): Agent = {
     playerOpt match {
       case Some(seer: NagaSeer) =>
-        seer.divine()
+        val ret = seer.divine()
+        println(s"divine : $ret")
+        ret
       case _ => null
     }
   }
@@ -121,9 +128,12 @@ class NagaPlayer extends Player {
     }
   }
 
-  override def finish(): Unit = playerOpt match {
-    case Some(player: NagaPersona) =>
-      player.dayStart()
-    case _ =>
+  override def finish(): Unit = {
+    println("***game finished***")
+    playerOpt match {
+      case Some(player: NagaPersona) =>
+        player.dayStart()
+      case _ =>
+    }
   }
 }

@@ -9,30 +9,53 @@ import scala.io.Source
 object OpponentDetective {
 
   val seq: mutable.MutableList[(Char, Char)] = mutable.MutableList.empty[(Char, Char)]
-  val sourceDir = "resource/fact"
+  val sourceDir = "resource"
+  val factSourceDir = s"$sourceDir/fact"
 
-  val KanoSource = Source.fromFile(s"${sourceDir}/kanofact.txt")
-  val KeldicSource = Source.fromFile(s"${sourceDir}/keldicfact.txt")
-  val McreSource = Source.fromFile(s"${sourceDir}/mcrefact.txt")
-  val WordWolfSource = Source.fromFile(s"${sourceDir}/wordwolffact.txt")
+  var kanoLines : List[String] = List.empty[String]
+  var keldicLines : List[String] = List.empty[String]
+  var mcreLines : List[String] = List.empty[String]
+  var wordwolfLines : List[String] = List.empty[String]
+  var UdonLines : List[String] = List.empty[String]
+  var RosenLines : List[String] = List.empty[String]
+  var FukuLines : List[String] = List.empty[String]
+  var AriesLines : List[String] = List.empty[String]
+  var CanisLines : List[String] = List.empty[String]
 
-  val UdonSource = Source.fromFile(s"${sourceDir}/udonfact.txt")
-  val RosenblattSource = Source.fromFile(s"${sourceDir}/rosenblattfact.txt")
-  val Fuku6uSource = Source.fromFile(s"${sourceDir}/fuku6ufact.txt")
-  val AriesSource = Source.fromFile(s"${sourceDir}/ariesfact.txt")
-  val CanisSource = Source.fromFile(s"${sourceDir}/canisLupusfact.txt")
+  var nagaSentenceList: List[String] =  List.empty[String]
+  var questionSentenceList: List[String] =  List.empty[String]
 
-  val kanoLines = KanoSource.getLines.toList
-  val keldicLines = KeldicSource.getLines.toList
-  val mcreLines = McreSource.getLines.toList
-  val wordwolfLines = WordWolfSource.getLines.toList
+  //ファイルからデータを読み込む処理は全てこのメソッド内で行うこと。
+  def inputTextResources() : Unit = {
+    val KanoSource = Source.fromFile(s"$factSourceDir/kanofact.txt")
+    val KeldicSource = Source.fromFile(s"$factSourceDir/keldicfact.txt")
+    val McreSource = Source.fromFile(s"$factSourceDir/mcrefact.txt")
+    val WordWolfSource = Source.fromFile(s"$factSourceDir/wordwolffact.txt")
 
-  val UdonLines = UdonSource.getLines.toList
-  val RosenLines = RosenblattSource.getLines.toList
-  val FukuLines = Fuku6uSource.getLines.toList
-  val AriesLines = AriesSource.getLines.toList
-  val CanisLines = CanisSource.getLines.toList
+    val UdonSource = Source.fromFile(s"$factSourceDir/udonfact.txt")
+    val RosenblattSource = Source.fromFile(s"$factSourceDir/rosenblattfact.txt")
+    val Fuku6uSource = Source.fromFile(s"$factSourceDir/fuku6ufact.txt")
+    val AriesSource = Source.fromFile(s"$factSourceDir/ariesfact.txt")
+    val CanisSource = Source.fromFile(s"$factSourceDir/canisLupusfact.txt")
 
+    val nagaSource = Source.fromFile(s"$sourceDir/naga.txt")
+    val questionSource = Source.fromFile(s"$sourceDir/question.txt")
+
+
+    kanoLines = KanoSource.getLines.toList
+    keldicLines = KeldicSource.getLines.toList
+    mcreLines = McreSource.getLines.toList
+    wordwolfLines = WordWolfSource.getLines.toList
+
+    UdonLines = UdonSource.getLines.toList
+    RosenLines = RosenblattSource.getLines.toList
+    FukuLines = Fuku6uSource.getLines.toList
+    AriesLines = AriesSource.getLines.toList
+    CanisLines = CanisSource.getLines.toList
+
+    nagaSentenceList = nagaSource.getLines.toList
+    questionSentenceList = questionSource.getLines.toList
+  }
 
   def collectEnemyName(dm: DialogManager): Unit = {
     val tlList = dm.taList.talkList.takeRight(4)
@@ -86,7 +109,7 @@ object OpponentDetective {
           dm.taList.anaList.resod.indigoList += tl.getAgent
         }
 
-//        println(dm.taList.anaList.resod.kanoList)
+      //        println(dm.taList.anaList.resod.kanoList)
     }
   }
 

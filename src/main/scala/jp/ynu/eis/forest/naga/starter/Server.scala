@@ -2,11 +2,19 @@ package jp.ynu.eis.forest.naga.starter
 
 import java.io.IOException
 import java.util.Random
-
 import org.aiwolf.common.net.GameSetting
 import org.aiwolf.server.AIWolfGame
 import org.aiwolf.server.net.TcpipServer
 
+object Server{
+  def main(args: Array[String]): Unit = {
+    val serv = new Thread(new Server)
+    serv.start()
+    serv.join(1000)
+
+
+  }
+}
 
 class Server extends Runnable {
   override def run(): Unit = {
@@ -30,7 +38,7 @@ class Server extends Runnable {
         game.start
       }
     while(!game.isGameFinished){
-      //Nothing else
+      //Do Nothing
     }
     game.finish()
     is.close()

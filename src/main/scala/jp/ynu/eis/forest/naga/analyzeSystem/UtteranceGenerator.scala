@@ -1,9 +1,8 @@
 package jp.ynu.eis.forest.naga.analyzeSystem
 
+import jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine.OpponentDetective
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
-import org.aiwolf.common.net.GameInfo
 
-import scala.io.Source
 import scala.util.Random
 
 case class UtteranceGenerator(answerResult: String, dm: DialogManager) {
@@ -38,15 +37,16 @@ case class UtteranceGenerator(answerResult: String, dm: DialogManager) {
       sentenceList(Random.nextInt(sentenceList.size))
     }
     */
+      //Random.nextBooleanって知ってる？
     else if(Random.shuffle(coin).head){
-      val file = Source.fromFile(s"${resource}/naga.txt")
-      val sentenceList = file.getLines.toList
+
+      val sentenceList = OpponentDetective.nagaSentenceList
       sentenceList(Random.nextInt(sentenceList.size))
 
     }
     else{
-      val file = Source.fromFile(s"${resource}/question.txt")
-      val sentenceList = file.getLines.toList
+
+      val sentenceList = OpponentDetective.questionSentenceList
       val enemyName  = Random.shuffle(agentList).head
       ">>"+ enemyName + " " + enemyName + Random.shuffle(sentenceList).head
     }

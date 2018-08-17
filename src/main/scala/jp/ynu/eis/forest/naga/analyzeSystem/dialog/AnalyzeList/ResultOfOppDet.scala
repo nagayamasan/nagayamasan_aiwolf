@@ -1,6 +1,5 @@
 package jp.ynu.eis.forest.naga.analyzeSystem.dialog.AnalyzeList
 
-import jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine.OpponentDetective.{KeldicSource, McreSource, WordWolfSource}
 import org.aiwolf.common.data.Agent
 
 import scala.collection.mutable
