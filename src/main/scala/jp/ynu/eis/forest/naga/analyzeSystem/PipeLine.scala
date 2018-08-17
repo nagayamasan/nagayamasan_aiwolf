@@ -12,7 +12,6 @@ case class PipeLine(dm :DialogManager) {
   var uaResultOpt : Option[UtteranceResult] = Option.empty[UtteranceResult]
   dm.addTurn
 
-
   uaResultOpt = Option(dm.gameInfoList.last.getRole match {
     case Role.SEER => SeerUA(dm).getResult
     case Role.WEREWOLF => WolfUA(dm).getResult
@@ -25,7 +24,7 @@ case class PipeLine(dm :DialogManager) {
 
   if(uaResult.needQA){
     val qaResult :QuestionResult = QuestionAnalyzer(uaResult).getResult
-    ugInput = AnswerGenerator(qaResult).getResresult
+    ugInput = AnswerGenerator(qaResult,dm).getResresult
 
   }else{
     ugInput = uaResult.mind

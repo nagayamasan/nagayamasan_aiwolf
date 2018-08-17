@@ -13,142 +13,118 @@ import org.aiwolf.common.net.GameInfo
 import scala.collection.mutable
 
 trait UtteranceAnalyzer {
-  val dm : DialogManager
-  val gameInfo : GameInfo = dm.gameInfoList.last
+  val dm: DialogManager
+  val gameInfo: GameInfo = dm.gameInfoList.last
   val recentTalkList: mutable.MutableList[Talk] = dm.taList.talkList.filter(_.getTurn == dm.taList.talkList.last.getTurn)
   var mind: SituationMind = RandomTalk
 
-  if(dm.taList.talkList.nonEmpty){
+  if (dm.taList.talkList.nonEmpty) {
     spellAnalyze()
     seerDetective()
 
   }
 
-  def analyze() : Unit
+  def analyze(): Unit
 
 
-  def getResult: UtteranceResult= {
+  def getResult: UtteranceResult = {
     val myname = dm.gameInfoList.last.getAgent.toString
     val question = dm.questionRegex
-    //val isQA = recentTalkList.exists(f => question.findFirstIn(f.getText).nonEmpty && f.getText.contains(">>" + myname))
-    val isQA = false
-    if(!isQA && mind == RandomTalk){
+    val isQA = recentTalkList.exists (f => question.findFirstIn(f.getText).nonEmpty && f.getText.contains(">>" + myname))
+
+    if (!isQA && mind == RandomTalk) {
       gomi
     }
     UtteranceResult(dm, isQA, mind)
 
   }
-  def spellAnalyze() : Unit ={
-      CaboCha.getResult(dm)
-      MeCab.getResult(dm)
-      OpponentDetective.collectEnemyName(dm)
+
+  def spellAnalyze(): Unit = {
+    CaboCha.getResult(dm)
+    MeCab.getResult(dm)
+    OpponentDetective.collectEnemyName(dm)
 
   }
 
 
-  def seerDetective() : Unit= {
+  def seerDetective(): Unit = {
     //会話が進む毎に占い師の判定をする
 
     val iam = "私".r
     val seer = "占い".r
     val kekka = "結果".r
     if (recentTalkList.nonEmpty) {
-      recentTalkList.foreach{
+      recentTalkList.foreach {
         f =>
-          if(seer.findFirstIn(f.getText).nonEmpty){
+          if (seer.findFirstIn(f.getText).nonEmpty) {
             dm.seerList += f.getAgent
 
           }
-          else if(kekka.findFirstIn(f.getText).nonEmpty){
+          else if (kekka.findFirstIn(f.getText).nonEmpty) {
             dm.seerList += f.getAgent
           }
       }
     }
   }
 
-  private def gomi :Unit ={
-    //println("speak")
-    if(gameInfo.getDay == 1 && dm.getTurn == 1){
-
-     mind = SeerComeon
-
-    }
-    else if (gameInfo.getDay == 2 && dm.getTurn == 1){
-      mind = Greeting(gameInfo.getDay)
-      //return "おはよう。二日目の朝が来てしまった。"
-    }
-    else if(gameInfo.getDay == 1 && dm.getTurn == dm.TURN_AGENT_ATERU_NUMBER){
-      OpponentDetective.setEnemyname(dm)
-      //var sentence = ""
-      if(dm.taList.anaList.resod.kano.nonEmpty && dm.callkano.get != gameInfo.getAgent){
-       mind = OpponentJudge(dm.callkano.get, Kanolab)
-        // sentence = dm.taList.anaList.resod.kano.get + "は誰かさんみたいな話し方をされますね。"
-      }
-      if(dm.taList.anaList.resod.keldic.nonEmpty){
-        mind = OpponentJudge(dm.callkeldic.get, Keldic)
-        /*if(sentence.isEmpty){
-          //sentence = dm.taList.anaList.resod.keldic.get + "はいつぞやのkeldicさんみたいですね。"
-        }else{
-          sentence = dm.taList.anaList.resod.keldic.get + "はkeldicさん、" + sentence
-        }*/
-      }
-      if(dm.taList.anaList.resod.mcre.nonEmpty){
-        mind = OpponentJudge(dm.callmcre.get, Mcre)
-        /*if(sentence == ""){
-          sentence = dm.taList.anaList.resod.mcre.get + "はひょっとするとmcreさんですか。"
-        }else{
-          sentence = dm.taList.anaList.resod.mcre.get + "はmcreさん、" + sentence
-        }*/
-      }
-      if(dm.taList.anaList.resod.wordWolf.nonEmpty){
-        mind = OpponentJudge(dm.callwordWlof.get, Wordwolf)
-      }
-       /* if(sentence == ""){
-          sentence = dm.taList.anaList.resod.wordWolf.get + "はもしかしてwordWolfさんですか。"
-        }else{
-          sentence = dm.taList.anaList.resod.wordWolf.get + "はwordWolfさん、" + sentence
-        }
-      }*/
-      if(dm.taList.anaList.resod.udon.nonEmpty){
-        mind = OpponentJudge(dm.taList.anaList.resod.udon.get, Udon)
-        /*if(sentence == ""){
-          sentence = dm.taList.anaList.resod.wordWolf.get + "はもしかしてUdonさんですか。"
-        }else{
-          sentence = dm.taList.anaList.resod.wordWolf.get + "はUdonさん、" + sentence
-        }*/
-      }
-      if(dm.taList.anaList.resod.indigo.nonEmpty && dm.taList.anaList.resod.indigo.get != gameInfo.getAgent ){
-        mind = OpponentJudge(dm.taList.anaList.resod.indigo.get, Indigo)
-        /*if(sentence == ""){
-          sentence = dm.taList.anaList.resod.indigo.get + "はどこかで聞いたことある話し方をしますね。"
-        }else{
-          sentence = dm.taList.anaList.resod.indigo.get + "はどこかで聞いたことある話し方をしますね。" + sentence
-        }*/
-      }
-      //return sentence
-
-    }
-    else if(gameInfo.getDay == 0){
-
-      if(dm.getTurn == 1) {
+  private def gomi: Unit = {
+    import scala.util.control.Breaks
+    //val break = new Breaks
+    if (dm.gameInfoList.last.getDay == 0) {
+      if (dm.getTurn == 1) {
         mind = Greeting(0)
-       // "お手柔らかにお願いします。"
-      }else{
-       mind = TalkOver
+        //break.break()
+
+        // "お手柔らかにお願いします。"
+      } else {
+        mind = TalkOver
+        //break.break()
+
         // Talk.OVER
       }
     }
-    //dm.taList.anaList.resod.kano.getがnullになるとやばい?
-    else if(dm.taList.anaList.resod.kano.nonEmpty && dm.seerList.contains(dm.taList.anaList.resod.kano.get)){
-
-      mind = KanoMeta(dm.callkano.get)
-      //dm.callkano + "は真か狼だよ"
-
+    else if (gameInfo.getDay == 1 && dm.getTurn == 1) {
+      mind = SeerComeon
+      //break.break()
     }
-    else if(dm.talkListChange(gameInfo.getTalkList).last.getTurn == dm.VOTE_DECIDED_TURN){
+    else if (gameInfo.getDay == 2 && dm.getTurn == 1) {
+      mind = Greeting(gameInfo.getDay)
+    }
+    else if (dm.talkListChange(gameInfo.getTalkList).last.getTurn >= dm.VOTE_DECIDED_TURN) {
       mind = TalkOver
+      // break.break()
+    }
+    else if (gameInfo.getDay == 1 && dm.getTurn == dm.TURN_AGENT_ATERU_NUMBER) {
+      OpponentDetective.setEnemyname(dm)
+      //var sentence = ""
+      if (dm.taList.anaList.resod.kano.nonEmpty && dm.callkano.get != gameInfo.getAgent && !dm.nameDetectList.contains(Kanolab)) {
+        mind = OpponentJudge(dm.callkano.get, Kanolab)
+        dm.nameDetectList += Kanolab
+      }
+      else if (dm.taList.anaList.resod.keldic.nonEmpty && dm.callkeldic.get != gameInfo.getAgent && !dm.nameDetectList.contains(Keldic)) {
+        mind = OpponentJudge(dm.callkeldic.get, Keldic)
+        dm.nameDetectList += Keldic
+      }
+      else if (dm.taList.anaList.resod.mcre.nonEmpty && dm.callmcre.get != gameInfo.getAgent && !dm.nameDetectList.contains(Mcre)) {
+        mind = OpponentJudge(dm.callkeldic.get, Mcre)
+        dm.nameDetectList += Mcre
+      }
+      else if (dm.taList.anaList.resod.wordWolf.nonEmpty && dm.callwordWlof.get != gameInfo.getAgent && !dm.nameDetectList.contains(Wordwolf)) {
+        mind = OpponentJudge(dm.callkeldic.get, Wordwolf)
+        dm.nameDetectList += Wordwolf
+      }
+      else if (dm.taList.anaList.resod.udon.nonEmpty && dm.taList.anaList.resod.udon.get != gameInfo.getAgent && !dm.nameDetectList.contains(Udon)) {
+        mind = OpponentJudge(dm.callkeldic.get, Udon)
+        dm.nameDetectList += Udon
+      }
+
+      if (dm.taList.anaList.resod.kano.nonEmpty && dm.seerList.contains(dm.taList.anaList.resod.kano.get)) {
+
+        mind = KanoMeta(dm.callkano.get)
+
+      }
+
     }
 
   }
-
 }

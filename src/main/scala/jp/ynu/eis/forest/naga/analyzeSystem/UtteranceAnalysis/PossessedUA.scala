@@ -19,6 +19,7 @@ case class PossessedUA(dm: DialogManager) extends UtteranceAnalyzer {
 
 
   override def getResult: UtteranceResult = {
+    analyze()
     super.getResult
   }
   override def analyze() : Unit = {
@@ -35,7 +36,7 @@ case class PossessedUA(dm: DialogManager) extends UtteranceAnalyzer {
         mind = DivineResult(randomAgent, Species.HUMAN)
       }
       //return "誠に残念ながら" +  + "は" + Random.shuffle(judgeList).head + "でした。"
-    } else if (gameInfo.getDay == 2 && dm.turn == 0) {
+    } else if (gameInfo.getDay == 2 && dm.turn == 1) {
       mind = RoleCo(Role.POSSESSED)
       //return "あ、どーも僕が狂人です。"
     }else if(gameInfo.getDay == 1 && dm.getTurn == dm.VOTE_DECIDED_TURN){

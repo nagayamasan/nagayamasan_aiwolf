@@ -1,6 +1,5 @@
 package jp.ynu.eis.forest.naga.result
 
-import java.util
 
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.{DialogManager, TalkAnalyzeList}
 import jp.ynu.eis.forest.naga.result.minds.SituationMind

@@ -1,12 +1,17 @@
 package jp.ynu.eis.forest.naga.analyzeSystem
 
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
 import jp.ynu.eis.forest.naga.result.QuestionResult
-import jp.ynu.eis.forest.naga.result.minds.SituationMind
+import jp.ynu.eis.forest.naga.result.minds._
+import org.aiwolf.common.data.Agent
 
-case class AnswerGenerator(question: QuestionResult){
+import scala.util.Random
+
+case class AnswerGenerator(question: QuestionResult,dm : DialogManager){
   def getResresult: SituationMind = {
     var resresult = ""
-    val name: String = question.getAgentName
+
+    val ankerTarget: Agent = question.getAgentName.getOrElse(Random.shuffle(dm.agentList).head)
 
     if(question.questionClass("who")){
       resresult = "お前だよ"
@@ -18,12 +23,14 @@ case class AnswerGenerator(question: QuestionResult){
       resresult = "なんとなくだよ。"
     }
 
-    if(resresult != "" && name != ""){
+    if(!resresult.isEmpty){
 
-      name + resresult
+      Answer(ankerTarget,resresult)
+
     }
     else{
-      "いやーさっぱり。"
+      RandomTalk
+
     }
   }
 }

@@ -13,6 +13,7 @@ case class VillagerUA(dm: DialogManager) extends UtteranceAnalyzer {
   wolfDetective
   //opponentDetective
   override def getResult: UtteranceResult ={
+    analyze()
     super.getResult
   }
 

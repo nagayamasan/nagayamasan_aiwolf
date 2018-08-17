@@ -43,6 +43,7 @@ class NagaPlayer extends Player {
     "forstsan"
   }
   override def update(gameInfo: GameInfo): Unit = {
+    println("***update***")
     playerOpt match {
       case Some(player: NagaPersona) =>
         player.update(gameInfo)
@@ -53,11 +54,11 @@ class NagaPlayer extends Player {
   override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
 
     playerOpt = Option(gameInfo.getRole match {
-      case Role.SEER => NagaSeer(gameInfo,gameSetting)
-      case Role.POSSESSED =>  NagaPossessed(gameInfo,gameSetting)
-      case Role.WEREWOLF => NagaWerewolf(gameInfo,gameSetting)
-      case Role.VILLAGER => NagaVillager(gameInfo,gameSetting)
-      case _ => NagaVillager(gameInfo,gameSetting)
+      case Role.SEER => NagaSeer()
+      case Role.POSSESSED =>  NagaPossessed()
+      case Role.WEREWOLF => NagaWerewolf()
+      case Role.VILLAGER => NagaVillager()
+      case _ => NagaVillager()
     })
     println(s"init : I(${gameInfo.getAgent}) am ${gameInfo.getRole}.")
     playerOpt.get.init(gameInfo,gameSetting)

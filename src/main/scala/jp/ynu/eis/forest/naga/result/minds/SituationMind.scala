@@ -18,3 +18,4 @@ case object SeerComeon extends SituationMind
 case object TalkOver extends SituationMind
 case object TalkSkip extends SituationMind
 final case class KanoMeta(ag: Agent) extends SituationMind//kanolabは占い師か狼のときのみCO
+final case class Answer(anker: Agent, response : String) extends  SituationMind

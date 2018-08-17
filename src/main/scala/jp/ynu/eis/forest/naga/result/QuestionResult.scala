@@ -9,15 +9,17 @@ import scala.util.Random
 case class QuestionResult(analist: mutable.MutableList[Talk], questionClass: mutable.Map[String, Boolean]) {
   var questionTalk: mutable.MutableList[Talk] = analist
 
-  def getAgentName: String ={
+  def getAgentName: Option[Agent] ={
     if(questionTalk.nonEmpty) {
-      var agentName = ">>" + Random.shuffle(questionTalk).head.getAgent + " "
+      var agentName = Option(Random.shuffle(questionTalk).head.getAgent)
       questionTalk.clear()
 
       agentName
 
     }
-    else{""}
+    else{
+      Option.empty[Agent]
+    }
 
   }
   def resetQuestionList: Unit ={

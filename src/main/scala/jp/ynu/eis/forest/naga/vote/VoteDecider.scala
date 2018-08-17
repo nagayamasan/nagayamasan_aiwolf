@@ -25,7 +25,7 @@ case class VoteDecider(dm : DialogManager) {
       return divinedWerewolfList.head.getTarget
     }
     val candidateAgentList :mutable.MutableList[Agent]= dm.agentList
-    val divinedHumanList = dm.divineList.filter(_.getResult == Species.HUMAN)
+    val divinedHumanList = dm.divineList.filter(_.getResult != Species.HUMAN)
 
 
     val a: mutable.MutableList[Agent] = candidateAgentList diff divinedHumanList
@@ -86,6 +86,6 @@ case class VoteDecider(dm : DialogManager) {
   }
 
   def getVoteAgent : Agent={
-    voteAgentOpt.get
+    voteAgentOpt.orNull
   }
 }

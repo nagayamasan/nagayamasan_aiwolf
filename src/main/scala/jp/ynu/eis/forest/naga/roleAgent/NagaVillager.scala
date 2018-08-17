@@ -10,7 +10,7 @@ import scala.collection.JavaConversions._
 import scala.collection.mutable
 import scala.math.random
 
-case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
+case class NagaVillager() extends NagaPersona {
 
   override def update(gameInfo: GameInfo): Unit = {
     super.update(gameInfo)
@@ -22,46 +22,12 @@ case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
   }
 
   override def talk(): String = {
-   /* if(gameInfo.getDay == 2 && dm.turn == 1){
-      dm.addTurn
-      dm.gameInfoList += gameInfo
-      dm.taList.collecting(gameInfo)
-      return "あ、どーも私が人狼です。"
-    }
-    else if(gameInfo.getDay == 1 && dm.getTurn == VOTE_DECIDED_TURN){
-      dm.addTurn
-      dm.gameInfoList += gameInfo
-      dm.taList.collecting(gameInfo)
-      if(vote != null && vote != gameInfo.getAgent){
-        return vote.toString + "に投票するわ。"
-      }
-      else{
-        return "投票先絞れない。"
-      }
-    }*/
+
     super.talk()
 
   }
   override def vote(): Agent = {
-    /*val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(_ != gameInfo.getAgent)
-    dm.seerList.foreach{
-      f =>
-        candidateAgentList.filter(ag => ag== f)
-    }
-    if(candidateAgentList.nonEmpty) {
-      dm.seerList.foreach{
-        f =>
-          candidateAgentList.filter(ag => ag== f)
 
-      }
-      Random.shuffle(candidateAgentList).head
-
-    }
-
-    else{
-      null
-
-    }*/
     super.vote()
   }
 

@@ -26,18 +26,20 @@ case class UtteranceGenerator(mind: SituationMind, dm: DialogManager) {
         }
       case DivineResult(ag,sp) =>
         sp match {
-          case Species.HUMAN =>"占いの結果" + ag + "は人間でした。"
-          case Species.WEREWOLF => "占いの結果" + ag + "は人狼でした。"
+          case Species.HUMAN =>s"占いの結果${ag}は人間でした。"
+          case Species.WEREWOLF => s"占いの結果${ag}は人狼でした。"
         }
       case VoteCo(ag) => ag + "に投票するわ。"
       case VoteCantChoose => "投票先絞れんわ。"
       case PossessedDetect => "狂人把握した。"
       case OpponentJudge(ag, op) =>s"${ag}はひょっとすると${op}さんですか。"
       case Greeting(0) => "お手柔らかにお願いします。"
+      case Greeting(2) => "二日目の朝が来てしまった。"
       case SeerComeon => "おはよう。占い師いる？"
       case TalkOver => Talk.OVER
       case TalkSkip => Talk.SKIP
       case KanoMeta(ag) => s"${ag}は真か狼だよ"
+      case Answer(ank, res) => s">>$ank $res"
       case _ => randomTalk
     }
 

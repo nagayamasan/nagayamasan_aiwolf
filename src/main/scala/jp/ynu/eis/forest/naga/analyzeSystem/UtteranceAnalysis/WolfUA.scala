@@ -15,6 +15,7 @@ case class WolfUA(dm: DialogManager) extends UtteranceAnalyzer {
   possessedDetective()
 
   override def getResult: UtteranceResult = {
+    analyze()
     super.getResult
   }
 
