@@ -1,9 +1,10 @@
 package jp.ynu.eis.forest.naga.analyzeSystem
 
 import jp.ynu.eis.forest.naga.result.QuestionResult
+import jp.ynu.eis.forest.naga.result.minds.SituationMind
 
 case class AnswerGenerator(question: QuestionResult){
-  def getResresult: String = {
+  def getResresult: SituationMind = {
     var resresult = ""
     val name: String = question.getAgentName
 

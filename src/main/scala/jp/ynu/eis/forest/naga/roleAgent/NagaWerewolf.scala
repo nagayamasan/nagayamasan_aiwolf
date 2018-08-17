@@ -12,16 +12,13 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
     super.update(gameInfo)
   }
 
-  override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
-
-  }
 
   override def dayStart(): Unit = {
     super.dayStart()
   }
 
   override def talk(): String = {
-    var flag = true
+    /*var flag = true
 
     if(gameInfo.getDay == 2 && dm.possList.nonEmpty && flag){
       dm.gameInfoList += gameInfo
@@ -31,7 +28,7 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
 
       return "狂人把握した"
     }
-    else if(gameInfo.getDay == 1 && dm.getTurn == VoteDecideTurn){
+    else if(gameInfo.getDay == 1 && dm.getTurn == VOTE_DECIDED_TURN){
       dm.addTurn
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
@@ -41,7 +38,7 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
       else{
         return "投票先絞れない。"
       }
-    }
+    }*/
     super.talk()
 
   }
@@ -51,7 +48,7 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
   }
 
   override def vote(): Agent = {
-    val attackList: mutable.MutableList[Agent] = dm.seerList
+    /*val attackList: mutable.MutableList[Agent] = dm.seerList
     if(attackList.isEmpty){
       return null
     }else if(attackList.size == 1){
@@ -64,7 +61,8 @@ case class NagaWerewolf(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
 
     } else{
       return null
-    }
+    }*/
+    super.vote()
   }
 
   def attack(): Agent = {

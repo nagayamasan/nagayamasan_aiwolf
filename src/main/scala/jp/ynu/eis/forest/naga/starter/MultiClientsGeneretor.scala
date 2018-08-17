@@ -1,9 +1,9 @@
 package jp.ynu.eis.forest.naga.starter
 
 
-object FourClientsGeneretor {
+object MultiClientsGeneretor {
 
   def main(args: Array[String]): Unit = {
-    NagaPlayer.clientStart(4)
+    NagaPlayer.clientStart(5)
   }
 }

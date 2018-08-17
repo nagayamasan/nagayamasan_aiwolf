@@ -16,22 +16,19 @@ case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
     super.update(gameInfo)
   }
 
-  override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
-    //dm.gameInfoList = mutable.MutableList.empty[GameInfo]
-  }
 
   override def dayStart(): Unit = {
     super.dayStart()
   }
 
   override def talk(): String = {
-    if(gameInfo.getDay == 2 && dm.turn == 1){
+   /* if(gameInfo.getDay == 2 && dm.turn == 1){
       dm.addTurn
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
       return "あ、どーも私が人狼です。"
     }
-    else if(gameInfo.getDay == 1 && dm.getTurn == VoteDecideTurn){
+    else if(gameInfo.getDay == 1 && dm.getTurn == VOTE_DECIDED_TURN){
       dm.addTurn
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
@@ -41,12 +38,12 @@ case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
       else{
         return "投票先絞れない。"
       }
-    }
+    }*/
     super.talk()
 
   }
   override def vote(): Agent = {
-    val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(_ != gameInfo.getAgent)
+    /*val candidateAgentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(_ != gameInfo.getAgent)
     dm.seerList.foreach{
       f =>
         candidateAgentList.filter(ag => ag== f)
@@ -64,7 +61,8 @@ case class NagaVillager(var gameInfo: GameInfo, var gameSetting: GameSetting) ex
     else{
       null
 
-    }
+    }*/
+    super.vote()
   }
 
   override def finish(): Unit = {

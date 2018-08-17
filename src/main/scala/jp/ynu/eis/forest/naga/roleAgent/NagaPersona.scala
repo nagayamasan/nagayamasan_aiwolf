@@ -3,30 +3,40 @@ package jp.ynu.eis.forest.naga.roleAgent
 import jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine.OpponentDetective
 import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
+import jp.ynu.eis.forest.naga.vote.VoteDecider
 import org.aiwolf.common.data.{Agent, Talk}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
 
+import scala.collection.mutable
+
 trait NagaPersona {
-  val name : String = "naga"
+ /* val name : String = "naga"
   val dm = new DialogManager
   var gameInfo: GameInfo
   var gameSetting: GameSetting
   val TURN_AGENT_ATERU_NUMBER = 3
-  val VoteDecideTurn = 8
-  val agentList = dm.agentListChange(gameInfo.getAliveAgentList).filter(el => gameInfo.getAgent != el)
+  val VOTE_DECIDED_TURN = 8
+  val agentList: mutable.MutableList[Agent] = dm.agentListChange(gameInfo.getAliveAgentList).filter(el => gameInfo.getAgent != el)*/
+  val dm = new DialogManager
 
-  def update(gameInfo: GameInfo): Unit = {
-    this.gameInfo = gameInfo
+  //gamesettingはdmに入れてない！！！
+  def init(gameInfo: GameInfo, gameSetting: GameSetting) : Unit={
+    dm.gameInfoList += gameInfo
   }
 
-  def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit
+
+  def update(gameInfo: GameInfo): Unit = {
+    dm.gameInfoList += gameInfo
+    dm.taList.collecting(gameInfo)
+  }
+
 
   def dayStart(): Unit = {
     dm.resetTurn
   }
 
   def talk(): String = {
-    //println("speak")
+    /*//println("speak")
     dm.addTurn
 
     if(gameInfo.getDay == 1 && dm.getTurn == 1){
@@ -99,23 +109,26 @@ trait NagaPersona {
         Talk.OVER
       }
     }
-    else if(dm.taList.anaList.resod.kano.nonEmpty && dm.seerList.contains(dm.taList.anaList.resod.kano)){
+      //dm.taList.anaList.resod.kano.getがnullになるとやばい?
+    else if(dm.taList.anaList.resod.kano.nonEmpty && dm.seerList.contains(dm.taList.anaList.resod.kano.get)){
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
 
       return dm.callkano + "は真か狼だよ"
 
     }
-    else if(dm.talkListChange(gameInfo.getTalkList).last.getTurn == VoteDecideTurn){
+    else if(dm.talkListChange(gameInfo.getTalkList).last.getTurn == VOTE_DECIDED_TURN){
       Talk.OVER
     }
     else{
-      new PipeLine(gameInfo, dm).getOutput
-    }
 
+    }*/
+    PipeLine(dm).getOutput
   }
 
-  def vote(): Agent
+  def vote(): Agent = {
+    VoteDecider(dm).getVoteAgent
+  }
 
   def finish(): Unit
 }

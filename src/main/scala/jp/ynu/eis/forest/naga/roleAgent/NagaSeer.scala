@@ -4,33 +4,32 @@ import java.util
 
 import jp.ynu.eis.forest.naga.analyzeSystem.PipeLine
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
+import jp.ynu.eis.forest.naga.vote.VoteDecider
 import org.aiwolf.common.data.{Agent, Judge, Role, Species}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
+
 import scala.collection.mutable
 import scala.util.Random
 
 case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extends NagaPersona {
-  val divineList = mutable.MutableList.empty[Judge]
+  //val divineList: mutable.MutableList[Judge] = mutable.MutableList.empty[Judge]
 
 
   override def update(gameInfo: GameInfo): Unit = {
     super.update(gameInfo)
     if (gameInfo.getDivineResult != null) {
-      divineList += gameInfo.getDivineResult
+      dm.divineList += gameInfo.getDivineResult
     }
   }
 
-  override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
-    //dm.gameInfoList = mutable.MutableList.empty[GameInfo]
-    divineList.clear()
-  }
+
 
   override def dayStart(): Unit = {
     super.dayStart()
   }
 
   override def talk(): String = {
-    val spMap = Map("HUMAN" -> "人間", "WEREWOLF" -> "人狼")
+    /*val spMap = Map("HUMAN" -> "人間", "WEREWOLF" -> "人狼")
     if(gameInfo.getDay == 1 && dm.turn == 0){
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
@@ -58,15 +57,15 @@ case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extend
       else{
         return "投票先絞れない。"
       }
-    }
+    }*/
     super.talk()
 
   }
 
-  override def vote(): Agent = {
-    val divinedWerewolf = divineList.filter(_.getResult == Species.WEREWOLF)
-    if (divinedWerewolf.nonEmpty) {
-      return divinedWerewolf.head.getTarget
+  override def vote: Agent = {
+    /*val divinedWerewolfList = divineList.filter(_.getResult == Species.WEREWOLF)
+    if (divinedWerewolfList.nonEmpty) {
+      return divinedWerewolfList.head.getTarget
     }
     val candidateAgentList = gameInfo.getAliveAgentList
     val divinedHumanList = divineList.filter(_.getResult == Species.HUMAN)
@@ -74,7 +73,9 @@ case class NagaSeer(var gameInfo: GameInfo, var gameSetting: GameSetting) extend
       candidateAgentList.remove(f.getTarget)
     })
 
-    candidateAgentList.get(Random.nextInt(candidateAgentList.size()))
+    candidateAgentList.get(Random.nextInt(candidateAgentList.size()))*/
+
+    super.vote()
   }
 
   def divine(): Agent = {

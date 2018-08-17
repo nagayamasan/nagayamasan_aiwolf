@@ -2,8 +2,8 @@ package jp.ynu.eis.forest.naga.analyzeSystem.dialog
 
 import java.util
 
-import org.aiwolf.common.data.{Agent, Role, Talk}
-import org.aiwolf.common.net.GameInfo
+import org.aiwolf.common.data.{Agent, Judge, Role, Talk}
+import org.aiwolf.common.net.{GameInfo, GameSetting}
 import sun.invoke.empty.Empty
 
 import scala.collection.mutable
@@ -18,6 +18,13 @@ class DialogManager{
   val possList = mutable.MutableList.empty[Agent]
   val questionRegex = """？|\?""".r
   var turn = 0
+
+  val TURN_AGENT_ATERU_NUMBER = 3
+  val VOTE_DECIDED_TURN = 8
+  var possdecFlag = false//人狼が強靭を把握したことを発言したかどうかのフラグ
+  val agentList: mutable.MutableList[Agent] = agentListChange(gameInfoList.last.getAliveAgentList).filter(el => gameInfoList.last.getAgent != el)
+
+  val divineList: mutable.MutableList[Judge] = mutable.MutableList.empty[Judge]
 
   def resetTurn: Unit = {
     turn = 0
@@ -80,7 +87,7 @@ class DialogManager{
     taList.anaList.resod.kano
 
   }
-  def callkeldic: Unit = {
+  def callkeldic: Option[Agent] = {
     taList.anaList.resod.keldic
 
   }

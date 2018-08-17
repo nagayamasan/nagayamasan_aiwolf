@@ -15,16 +15,14 @@ case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) e
     super.update(gameInfo)
   }
 
-  override def initialize(gameInfo: GameInfo, gameSetting: GameSetting): Unit = {
 
-  }
 
   override def dayStart(): Unit = {
     super.dayStart()
   }
 
   override def talk(): String = {
-    val judgeList = mutable.MutableList("人狼","黒")
+    /*val judgeList = mutable.MutableList("人狼","黒")
 
     if(gameInfo.getDay == 1 && dm.turn == 0){
       dm.addTurn
@@ -45,7 +43,7 @@ case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) e
 
       return "あ、どーも僕が狂人です。"
     }
-    else if(gameInfo.getDay == 1 && dm.getTurn == VoteDecideTurn){
+    else if(gameInfo.getDay == 1 && dm.getTurn == VOTE_DECIDED_TURN){
       dm.addTurn
       dm.gameInfoList += gameInfo
       dm.taList.collecting(gameInfo)
@@ -55,12 +53,12 @@ case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) e
       else{
         return "投票先絞れない。"
       }
-    }
+    }*/
     super.talk()
   }
 
   override def vote(): Agent = {
-    val votelist: mutable.MutableList[Agent] = dm.seerList.filter(_ != gameInfo.getAgent)
+   /* val votelist: mutable.MutableList[Agent] = dm.seerList.filter(_ != gameInfo.getAgent)
 
     if(votelist.isEmpty){
       blackTarget
@@ -69,8 +67,10 @@ case class NagaPossessed(var gameInfo: GameInfo, var gameSetting: GameSetting) e
       agentList.filter(_ != dm.wolfList.head).last
 
     }
-    else votelist.last
-
+    else{
+      votelist.last
+    }*/
+    super.vote()
   }
   override def finish(): Unit = {
 

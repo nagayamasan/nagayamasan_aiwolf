@@ -60,7 +60,7 @@ class NagaPlayer extends Player {
       case _ => NagaVillager(gameInfo,gameSetting)
     })
     println(s"init : I(${gameInfo.getAgent}) am ${gameInfo.getRole}.")
-    playerOpt.get.initialize(gameInfo,gameSetting)
+    playerOpt.get.init(gameInfo,gameSetting)
   }
 
   override def dayStart(): Unit = {
