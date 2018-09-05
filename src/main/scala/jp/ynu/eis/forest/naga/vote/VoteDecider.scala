@@ -60,13 +60,16 @@ case class VoteDecider(dm : DialogManager) {
     }else if(attackList.size == 1){
       attackList.head
     }//kanoメタ
-    else if(dm.taList.anaList.resod.kano.isDefined && attackList.contains(dm.taList.anaList.resod.kano.get)){
-      dm.taList.anaList.resod.kano.get
+    else if(dm.getKano.isDefined &&
+      attackList.contains(dm.getKano.get)){
 
-    }else if(dm.gameInfoList.last.getDay == 2 && dm.possList.nonEmpty){
+      dm.getKano.get
+    }
+    else if(dm.gameInfoList.last.getDay == 2 && dm.possList.nonEmpty){
       dm.agentList.filter(_ != dm.possList.head).last
 
-    } else{
+    }
+    else{
       null
     }
   }

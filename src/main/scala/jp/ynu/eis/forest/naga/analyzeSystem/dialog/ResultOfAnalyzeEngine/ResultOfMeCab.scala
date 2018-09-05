@@ -1,4 +1,4 @@
-package jp.ynu.eis.forest.naga.analyzeSystem.dialog.AnalyzeList
+package jp.ynu.eis.forest.naga.analyzeSystem.dialog.ResultOfAnalyzeEngine
 
 import scala.collection.mutable
 

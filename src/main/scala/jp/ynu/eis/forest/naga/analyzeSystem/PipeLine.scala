@@ -22,18 +22,16 @@ case class PipeLine(dm :DialogManager) {
   val uaResult: UtteranceResult = uaResultOpt.get
   var ugInput : SituationMind = RandomTalk//default
 
-  if(uaResult.needQA){
+  if(uaResult.recentTalkList.filter(_.thisIsQuestion == true).nonEmpty){//最近の会話に質問文が含まれている
     val qaResult :QuestionResult = QuestionAnalyzer(uaResult).getResult
     ugInput = AnswerGenerator(qaResult,dm).getResresult
-
-  }else{
+  }
+  else{
     ugInput = uaResult.mind
   }
 
   val ugResult :String = UtteranceGenerator(ugInput, dm).getResult
-
   def getOutput:String={
     ugResult
   }
-
 }

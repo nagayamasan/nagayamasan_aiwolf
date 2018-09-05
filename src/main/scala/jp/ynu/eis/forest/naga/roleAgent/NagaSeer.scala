@@ -40,6 +40,7 @@ case class NagaSeer() extends NagaPersona {
 
     if(candidateAgentList.nonEmpty){
       Random.shuffle(candidateAgentList).head
+
     }else{
       null
 

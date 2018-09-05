@@ -3,46 +3,57 @@ package jp.ynu.eis.forest.naga.analyzeSystem.dialog
 import java.util
 
 import jp.ynu.eis.forest.naga.OpponentMetaData.OpponentData
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.ResultOfAnalyzeEngine.ResultOfOppDet
 import org.aiwolf.common.data.{Agent, Judge, Role, Talk}
 import org.aiwolf.common.net.{GameInfo, GameSetting}
-import sun.invoke.empty.Empty
 
 import scala.collection.mutable
-import scala.collection.JavaConverters._
 
 class DialogManager{
 
   val gameInfoList = mutable.MutableList.empty[GameInfo]
-  val taList = new TalkAnalyzeList
+  val neoTalkList = mutable.MutableList.empty[NeoTalk]
   val seerList = mutable.MutableList.empty[Agent]
   val wolfList = mutable.MutableList.empty[Agent]
   val possList = mutable.MutableList.empty[Agent]
-  val questionRegex = """？|\?""".r
-  var turn = 0
-  val nameDetectList = mutable.MutableList.empty[OpponentData]
 
+  val questionRegex = """？|\?""".r
+  val nameDetectList = mutable.MutableList.empty[OpponentData]
+  val resultOfOpp = new ResultOfOppDet
   val TURN_AGENT_ATERU_NUMBER = 3
   val VOTE_DECIDED_TURN = 8
-  var possdecFlag = false//人狼が強靭を把握したことを発言したかどうかのフラグ
-  var agentList: mutable.MutableList[Agent] = mutable.MutableList.empty[Agent]
+  var possdecFlag = false//人狼が狂人を把握したことを発言したかどうかのフラグ
+  var turn = 0
 
   val divineList: mutable.MutableList[Judge] = mutable.MutableList.empty[Judge]
+  var agentList: mutable.MutableList[Agent] = mutable.MutableList.empty[Agent]
+
+
 
 
   def init(gameInfo: GameInfo) :Unit={
     gameInfoList.clear()
     gameInfoList += gameInfo
-    possdecFlag = false//人狼が強靭を把握したことを発言したかどうかのフラグ
+    possdecFlag = false//人狼が狂人を把握したことを発言したかどうかのフラグ
     agentList= agentListChange(gameInfoList.last.getAliveAgentList).filter(el => gameInfoList.last.getAgent != el)
     divineList.clear()
     nameDetectList.clear()
   }
   def update(gameInfo: GameInfo) :Unit ={
     gameInfoList += gameInfo
-    taList.collecting(gameInfo)
+    setNeoTalkList(gameInfo)
     agentList= agentListChange(gameInfoList.last.getAliveAgentList).filter(el => gameInfoList.last.getAgent != el)
   }
-
+  def setNeoTalkList(gameInfo: GameInfo)= {
+    //val newGetTalkSize = agentListChange(gameInfo.getAliveAgentList).size - 1  自分を除く直近のトークリストの数
+    if (!gameInfo.getTalkList.isEmpty){
+      val recentTalkList: mutable.MutableList[Talk] = talkListChange(gameInfo.getTalkList).filter(_.getTurn == talkListChange(gameInfo.getTalkList).last.getTurn)
+      recentTalkList.foreach {
+        recentTalk =>
+          neoTalkList += NeoTalk(recentTalk)
+      }
+    }
+  }
   def resetTurn: Unit = {
     turn = 0
   }
@@ -81,41 +92,45 @@ class DialogManager{
   }
 
   def listedAgentName: mutable.MutableList[Agent] ={
-    val agnmList = mutable.MutableList.empty[Agent]
-    agnmList += taList.anaList.resod.kano.get
-    agnmList += taList.anaList.resod.keldic.get
-    agnmList += taList.anaList.resod.mcre.get
-    agnmList += taList.anaList.resod.wordWolf.get
-    agnmList += taList.anaList.resod.indigo.get
+    val agentNameList = mutable.MutableList.empty[Agent]
+    agentNameList += resultOfOpp.kano.get
+    agentNameList += resultOfOpp.keldic.get
+    agentNameList += resultOfOpp.mcre.get
+    agentNameList += resultOfOpp.wordWolf.get
+    agentNameList += resultOfOpp.indigo.get
 
-    return agnmList
+    agentNameList
   }
 
-  def callMeCab ={
-    val word = taList.anaList.resm.wordData
-    val wordim = taList.anaList.resm.wordimData
+  def getKano: Option[Agent] ={
+    resultOfOpp.kano
   }
-  def callCabocha={
-    val word = taList.anaList.resc.wordData
-    val wordim = taList.anaList.resc.wordimData
-
+  def getKeldic: Option[Agent] ={
+    resultOfOpp.keldic
   }
-  def callkano: Option[Agent] ={
-    taList.anaList.resod.kano
-
+  def getMcre: Option[Agent] ={
+    resultOfOpp.mcre
   }
-  def callkeldic: Option[Agent] = {
-    taList.anaList.resod.keldic
-
+  def getWordWolf: Option[Agent] ={
+    resultOfOpp.wordWolf
   }
-  def callmcre: Option[Agent] ={
-    taList.anaList.resod.mcre
-
+  def getUdon: Option[Agent] ={
+    resultOfOpp.udon
   }
-  def callwordWlof: Option[Agent] ={
-    taList.anaList.resod.wordWolf
-
+  def getRosen: Option[Agent] ={
+    resultOfOpp.rosen
   }
-
+  def getFuku: Option[Agent] ={
+    resultOfOpp.fuku
+  }
+  def getAries: Option[Agent] ={
+    resultOfOpp.aries
+  }
+  def getCains: Option[Agent]={
+    resultOfOpp.cains
+  }
+  def getIndigo: Option[Agent]={
+    resultOfOpp.indigo
+  }
 }
 

@@ -31,7 +31,6 @@ object NagaPlayer {
 
 
   def main(args: Array[String]): Unit = {
-
     clientStart(1)
 
   }

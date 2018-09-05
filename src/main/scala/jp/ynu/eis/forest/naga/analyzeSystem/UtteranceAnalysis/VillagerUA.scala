@@ -1,6 +1,6 @@
 package jp.ynu.eis.forest.naga.analyzeSystem.UtteranceAnalysis
 
-import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.{DialogManager, NeoTalk}
 import jp.ynu.eis.forest.naga.result.UtteranceResult
 import jp.ynu.eis.forest.naga.result.minds.{RoleCo, VoteCantChoose, VoteCo}
 import jp.ynu.eis.forest.naga.vote.VoteDecider
@@ -37,7 +37,7 @@ case class VillagerUA(dm: DialogManager) extends UtteranceAnalyzer {
   def wolfDetective = {
     val wolfWord = "人狼"
     Option(recentTalkList) match {
-      case Some(list: mutable.MutableList[Talk]) =>
+      case Some(list: mutable.MutableList[NeoTalk]) =>
         recentTalkList.foreach(f => {
           if (f.getText.contains(wolfWord) && f.getDay == 2) {
             dm.wolfList += f.getAgent

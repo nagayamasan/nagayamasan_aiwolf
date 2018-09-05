@@ -1,14 +1,14 @@
 package jp.ynu.eis.forest.naga.result
 
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.NeoTalk
 import org.aiwolf.common.data.{Agent, Talk}
 import sun.invoke.empty.Empty
 
 import scala.collection.mutable
 import scala.util.Random
 
-case class QuestionResult(analist: mutable.MutableList[Talk], questionClass: mutable.Map[String, Boolean]) {
-  var questionTalk: mutable.MutableList[Talk] = analist
-
+case class QuestionResult(analist: mutable.MutableList[NeoTalk], questionClass: mutable.Map[String, Boolean]) {
+  var questionTalk: mutable.MutableList[NeoTalk] = analist
   def getAgentName: Option[Agent] ={
     if(questionTalk.nonEmpty) {
       var agentName = Option(Random.shuffle(questionTalk).head.getAgent)
@@ -24,6 +24,5 @@ case class QuestionResult(analist: mutable.MutableList[Talk], questionClass: mut
   }
   def resetQuestionList: Unit ={
     questionTalk.clear()
-
   }
 }

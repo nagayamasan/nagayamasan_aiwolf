@@ -21,14 +21,14 @@ case class SeerUA(dm : DialogManager) extends UtteranceAnalyzer {
 
   override def analyze() : Unit ={
     //val spMap = Map("HUMAN" -> "人間", "WEREWOLF" -> "人狼")
-    if(gameInfo.getDay == 1 && dm.turn == 0){
+    if(gameInfo.getDay == 1 && dm.turn == 1){
       mind = RoleCo(Role.SEER)
       //return "私は占い師です"
 
-    }else if(gameInfo.getDay == 1 && dm.getTurn == 1){
+    }else if(gameInfo.getDay == 1 && dm.getTurn == 2){
       mind = DivineResult(gameInfo.getDivineResult.getTarget, gameInfo.getDivineResult.getResult)
       //return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
-    }else if(gameInfo.getDay == 2 && dm.getTurn == 1){
+    }else if(gameInfo.getDay == 2 && dm.getTurn == 2){
       mind = DivineResult(gameInfo.getDivineResult.getTarget, gameInfo.getDivineResult.getResult)
       //return "占いの結果" + gameInfo.getDivineResult.getTarget + "は" + spMap(gameInfo.getDivineResult.getResult.toString) + "でした。"
     }

@@ -38,8 +38,8 @@ case class NagaWerewolf() extends NagaPersona {
       null
     }else if(attackList.size == 1){
       attackList.head
-    }else if(dm.callkano.isDefined && attackList.contains(dm.callkano.get)){
-      dm.taList.anaList.resod.kano.get
+    }else if(dm.getKano.isDefined && attackList.contains(dm.getKano.get)){
+      dm.getKano.get
     }else{
       null
     }

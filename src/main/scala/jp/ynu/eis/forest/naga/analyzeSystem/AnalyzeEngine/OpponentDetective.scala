@@ -1,7 +1,9 @@
 package jp.ynu.eis.forest.naga.analyzeSystem.AnalyzeEngine
 
 import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
-import org.aiwolf.common.data.Agent
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.ResultOfAnalyzeEngine.ResultOfOppDet
+import org.aiwolf.common.data.{Agent, Talk}
+import org.aiwolf.common.net.GameInfo
 
 import scala.collection.{immutable, mutable}
 import scala.io.Source
@@ -57,72 +59,105 @@ object OpponentDetective {
     questionSentenceList = questionSource.getLines.toList
   }
 
-  def collectEnemyName(dm: DialogManager): Unit = {
-    val tlList = dm.taList.talkList.takeRight(4)
-    //val odList = dm.taList.anaList.resod
+  def collectEnemyName(talk: Talk, resultofopp: ResultOfOppDet): Unit = {
+    //特定できるトークをその候補リストに入れる
 
-    tlList.foreach {
-      tl =>
-        val tl00: String = tl.getText.replaceAll("""\[[0-9][0-9]\]""", "[00]")
-        if (tl.isOver || tl.isSkip) {
-          //no action
-
-        }
-        if (kanoLines.contains(tl00)) {
-          dm.taList.anaList.resod.kanoList += tl.getAgent
-
-        }
-        if (keldicLines.contains(tl00)) {
-          dm.taList.anaList.resod.keldicList += tl.getAgent
-
-        }
-        if (mcreLines.contains(tl00)) {
-          dm.taList.anaList.resod.mcreList += tl.getAgent
-
-        }
-        if (wordwolfLines.contains(tl00)) {
-          dm.taList.anaList.resod.wordWolfList += tl.getAgent
-
-        }
-        if (UdonLines.contains(tl00)) {
-          dm.taList.anaList.resod.udonList += tl.getAgent
-
-        }
-        if (RosenLines.contains(tl00)) {
-          dm.taList.anaList.resod.rosenList += tl.getAgent
-
-        }
-        if (FukuLines.contains(tl00)) {
-          dm.taList.anaList.resod.fukuList += tl.getAgent
-
-        }
-        if (AriesLines.contains(tl00)) {
-          dm.taList.anaList.resod.ariesList += tl.getAgent
-
-        }
-        if (CanisLines.contains(tl00)) {
-          dm.taList.anaList.resod.cainsList += tl.getAgent
-
-        }
-
-        else {
-          dm.taList.anaList.resod.indigoList += tl.getAgent
-        }
-
-      //        println(dm.taList.anaList.resod.kanoList)
+    val convertTalk: String = talk.getText.replaceAll("""\[[0-9][0-9]\]""", "[00]")
+    if (talk.isOver || talk.isSkip) {
+      //no action
+    }
+    if (kanoLines.contains(convertTalk)) {
+      resultofopp.kanoList += talk.getAgent
+    }
+    if (keldicLines.contains(convertTalk)) {
+      resultofopp.keldicList += talk.getAgent
+    }
+    if (mcreLines.contains(convertTalk)) {
+      resultofopp.mcreList += talk.getAgent
+    }
+    if (wordwolfLines.contains(convertTalk)) {
+      resultofopp.wordWolfList += talk.getAgent
+    }
+    if (UdonLines.contains(convertTalk)) {
+      resultofopp.udonList += talk.getAgent
+    }
+    if (RosenLines.contains(convertTalk)) {
+      resultofopp.rosenList += talk.getAgent
+    }
+    if (FukuLines.contains(convertTalk)) {
+      resultofopp.fukuList += talk.getAgent
+    }
+    if (AriesLines.contains(convertTalk)) {
+      resultofopp.ariesList += talk.getAgent
+    }
+    if (CanisLines.contains(convertTalk)) {
+      resultofopp.cainsList += talk.getAgent
+    }
+    else {
+      resultofopp.indigoList += talk.getAgent
     }
   }
 
-  def setEnemyname(dm: DialogManager): Unit = {
-    var Max = 0
-    var tag: Agent = dm.gameInfoList.last.getAgent
-    var agentList = dm.agentListChange(dm.gameInfoList.last.getAliveAgentList)
+  def setEnemyname(resultofoppdet: ResultOfOppDet, agentlist: mutable.MutableList[Agent]): Unit = {
+    var kanoMax = 0
+    var keldicMax = 0
+    var mcreMax = 0
+    var wordWolfMax = 0
+    var udonMax = 0
+    var rosenMax = 0
+    var fukuMax = 0
+    var ariesMax = 0
+    var cainsMax = 0
 
+    agentlist.foreach{
+      agent =>
+        if(kanoMax <= resultofoppdet.kanoList.count(_ == agent)){
+          kanoMax = resultofoppdet.kanoList.count(_ == agent)
+          resultofoppdet.kano = Option(agent)
+        }
+        if(keldicMax <= resultofoppdet.keldicList.count(_ == agent)) {
+          keldicMax = resultofoppdet.keldicList.count(_ == agent)
+          resultofoppdet.keldic = Option(agent)
+        }
+        if(mcreMax <= resultofoppdet.mcreList.count(_ == agent)) {
+          mcreMax = resultofoppdet.mcreList.count(_ == agent)
+          resultofoppdet.mcre = Option(agent)
+        }
+        if(wordWolfMax <= resultofoppdet.wordWolfList.count(_ == agent)) {
+          wordWolfMax = resultofoppdet.wordWolfList.count(_ == agent)
+          resultofoppdet.wordWolf = Option(agent)
+        }
+        if(udonMax <= resultofoppdet.udonList.count(_ == agent)) {
+          udonMax = resultofoppdet.udonList.count(_ == agent)
+          resultofoppdet.udon = Option(agent)
+        }
+        if(rosenMax <= resultofoppdet.rosenList.count(_ == agent)) {
+          rosenMax = resultofoppdet.rosenList.count(_ == agent)
+          resultofoppdet.rosen = Option(agent)
+        }
+        if(fukuMax <= resultofoppdet.fukuList.count(_ == agent)) {
+          fukuMax = resultofoppdet.fukuList.count(_ == agent)
+          resultofoppdet.fuku = Option(agent)
+        }
+        if(ariesMax <= resultofoppdet.ariesList.count(_ == agent)) {
+          ariesMax = resultofoppdet.ariesList.count(_ == agent)
+          resultofoppdet.aries = Option(agent)
+        }
+        if(cainsMax <= resultofoppdet.cainsList.count(_ == agent)) {
+          cainsMax = resultofoppdet.cainsList.count(_ == agent)
+          resultofoppdet.cains = Option(agent)
+        }
+    }
+
+    //var tag: Agent = dm.gameInfoList.last.getAgent
+    //var agentList = dm.agentListChange(dm.gameInfoList.last.getAliveAgentList)
+
+    /*
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.kanoList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.kanoList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.kano = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.kanoList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.kanoList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.kano = Option(ag)
           tag = ag
         }
     }
@@ -131,9 +166,9 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.keldicList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.keldicList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.keldic = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.keldicList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.keldicList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.keldic = Option(ag)
           tag = ag
         }
     }
@@ -142,9 +177,9 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.mcreList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.mcreList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.mcre = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.mcreList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.mcreList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.mcre = Option(ag)
           tag = ag
         }
     }
@@ -153,9 +188,9 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.mcreList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.mcreList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.mcre = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.mcreList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.mcreList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.mcre = Option(ag)
           tag = ag
         }
     }
@@ -164,9 +199,9 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.wordWolfList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.wordWolfList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.wordWolf = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.wordWolfList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.wordWolfList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.wordWolf = Option(ag)
           tag = ag
         }
     }
@@ -175,9 +210,9 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.udonList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.udonList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.udon = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.udonList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.udonList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.udon = Option(ag)
           tag = ag
         }
     }
@@ -186,9 +221,9 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.rosenList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.rosenList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.rosen = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.rosenList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.rosenList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.rosen = Option(ag)
           tag = ag
         }
     }
@@ -197,9 +232,9 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.fukuList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.fukuList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.fuku = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.fukuList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.fukuList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.fuku = Option(ag)
           tag = ag
         }
     }
@@ -208,9 +243,9 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.ariesList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.ariesList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.aries = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.ariesList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.ariesList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.aries = Option(ag)
           tag = ag
         }
     }
@@ -219,17 +254,17 @@ object OpponentDetective {
 
     agentList.foreach {
       ag =>
-        if (Max < dm.taList.anaList.resod.cainsList.count(nameag => nameag == ag)) {
-          Max = dm.taList.anaList.resod.cainsList.count(nameag => nameag == ag)
-          dm.taList.anaList.resod.cains = Option(ag)
+        if (Max < dm.neoTalkList.allAnalyzeList.resultofopp.cainsList.count(nameag => nameag == ag)) {
+          Max = dm.neoTalkList.allAnalyzeList.resultofopp.cainsList.count(nameag => nameag == ag)
+          dm.neoTalkList.allAnalyzeList.resultofopp.cains = Option(ag)
           tag = ag
         }
     }
     agentList = agentList.filter(f => f != tag)
     Max = 0
 
-    dm.taList.anaList.resod.indigo = Option(agentList.last)
-
+    dm.neoTalkList.allAnalyzeList.resultofopp.indigo = Option(agentList.last)
+*/
   }
 
 

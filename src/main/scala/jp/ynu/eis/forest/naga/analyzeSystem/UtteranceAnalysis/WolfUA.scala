@@ -1,6 +1,6 @@
 package jp.ynu.eis.forest.naga.analyzeSystem.UtteranceAnalysis
 
-import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.{DialogManager, NeoTalk}
 import jp.ynu.eis.forest.naga.result.UtteranceResult
 import jp.ynu.eis.forest.naga.result.minds.{PossessedDetect, VoteCantChoose, VoteCo}
 import jp.ynu.eis.forest.naga.vote.VoteDecider
@@ -45,7 +45,7 @@ case class WolfUA(dm: DialogManager) extends UtteranceAnalyzer {
   def possessedDetective(): Unit = {
     val possesedWord = "狂人"
     Option(recentTalkList) match {
-      case Some(list: mutable.MutableList[Talk]) =>
+      case Some(list: mutable.MutableList[NeoTalk]) =>
         recentTalkList.foreach(f => {
           if (f.getText.contains(possesedWord) && f.getDay == 2) {
             dm.possList += f.getAgent

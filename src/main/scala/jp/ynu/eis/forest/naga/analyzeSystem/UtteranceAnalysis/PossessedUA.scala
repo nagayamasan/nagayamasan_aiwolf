@@ -1,7 +1,7 @@
 package jp.ynu.eis.forest.naga.analyzeSystem.UtteranceAnalysis
 
 import jp.ynu.eis.forest.naga.analyzeSystem._
-import jp.ynu.eis.forest.naga.analyzeSystem.dialog.DialogManager
+import jp.ynu.eis.forest.naga.analyzeSystem.dialog.{DialogManager, NeoTalk}
 import jp.ynu.eis.forest.naga.result.UtteranceResult
 import jp.ynu.eis.forest.naga.result.minds.{DivineResult, RoleCo, VoteCantChoose, VoteCo}
 import jp.ynu.eis.forest.naga.vote.VoteDecider
@@ -23,11 +23,11 @@ case class PossessedUA(dm: DialogManager) extends UtteranceAnalyzer {
     super.getResult
   }
   override def analyze() : Unit = {
-    if (gameInfo.getDay == 1 && dm.turn == 0) {
+    if (gameInfo.getDay == 1 && dm.turn == 1) {
       mind = RoleCo(Role.SEER)
       //return "私は占い師です"
     }
-    else if (gameInfo.getDay == 1 && dm.getTurn == 1) {
+    else if (gameInfo.getDay == 1 && dm.getTurn == 2) {
       val randomAgent: Agent = Random.shuffle(dm.agentList).last
       if (divineWerwolfRatio) {
         mind = DivineResult(randomAgent, Species.WEREWOLF)
@@ -58,7 +58,7 @@ case class PossessedUA(dm: DialogManager) extends UtteranceAnalyzer {
   def wolfDetective = {
     val wolfWord = "人狼"
     Option(recentTalkList) match {
-      case Some(list: mutable.MutableList[Talk]) =>
+      case Some(list: mutable.MutableList[NeoTalk]) =>
         recentTalkList.foreach(f => {
           if (f.getText.contains(wolfWord) && f.getDay == 2) {
             dm.wolfList += f.getAgent
