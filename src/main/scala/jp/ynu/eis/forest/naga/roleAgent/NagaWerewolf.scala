@@ -24,7 +24,7 @@ case class NagaWerewolf() extends NagaPersona {
   }
 
   def whisper(): String = {
-    "kusa"
+    "俺が人狼だ！"
   }
 
   override def vote(): Agent = {

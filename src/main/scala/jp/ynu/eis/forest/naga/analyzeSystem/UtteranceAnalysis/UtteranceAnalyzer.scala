@@ -48,10 +48,10 @@ trait UtteranceAnalyzer {
 
   def seerDetective(): Unit = {
     //会話が進む毎に占い師の判定をする
-
     val iam = "私".r
     val seer = "占い".r
     val kekka = "結果".r
+
     if (recentTalkList.nonEmpty) {
       recentTalkList.foreach {
         f =>
@@ -72,7 +72,7 @@ trait UtteranceAnalyzer {
     if (dm.gameInfoList.last.getDay == 0) {
       if (dm.getTurn == 1) {
         mind = Greeting(0)
-        //break.break()
+        //  break.break()
 
         // "お手柔らかにお願いします。"
       } else {
@@ -93,7 +93,7 @@ trait UtteranceAnalyzer {
       mind = TalkOver
       // break.break()
     }
-    else if (gameInfo.getDay == 1 && dm.getTurn == dm.TURN_AGENT_ATERU_NUMBER) {
+    else if (gameInfo.getDay == 1) {
       OpponentDetective.setEnemyname(dm.resultOfOpp, dm.agentList)
       //var sentence = ""
       if (dm.resultOfOpp.kano.nonEmpty &&

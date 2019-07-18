@@ -7,22 +7,23 @@ import sun.invoke.empty.Empty
 import scala.collection.mutable
 import scala.util.Random
 
-case class QuestionResult(analist: mutable.MutableList[NeoTalk], questionClass: mutable.Map[String, Boolean]) {
-  var questionTalk: mutable.MutableList[NeoTalk] = analist
+case class QuestionResult(analyzeList: mutable.MutableList[NeoTalk], questionClass: mutable.Map[String, Boolean]) {
+  var questionTalk: mutable.MutableList[NeoTalk] = analyzeList
   def getAgentName: Option[Agent] ={
     if(questionTalk.nonEmpty) {
       var agentName = Option(Random.shuffle(questionTalk).head.getAgent)
       questionTalk.clear()
 
-      agentName
+      return agentName
 
     }
     else{
-      Option.empty[Agent]
+      return Option.empty[Agent]
     }
 
   }
+
   def resetQuestionList: Unit ={
-    questionTalk.clear()
+    return questionTalk.clear()
   }
 }

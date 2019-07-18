@@ -20,8 +20,8 @@ case class WolfUA(dm: DialogManager) extends UtteranceAnalyzer {
   }
 
   override def analyze(): Unit = {
-    if(gameInfo.getDay == 2 && dm.possList.nonEmpty && !dm.possdecFlag){
-      dm.possdecFlag = true
+    if(gameInfo.getDay == 2 && dm.possList.nonEmpty && !dm.possDecFlag){
+      dm.possDecFlag = true
       mind = PossessedDetect
       //return "狂人把握した"
     }

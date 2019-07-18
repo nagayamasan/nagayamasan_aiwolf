@@ -20,21 +20,21 @@ class DialogManager{
   val questionRegex = """？|\?""".r
   val nameDetectList = mutable.MutableList.empty[OpponentData]
   val resultOfOpp = new ResultOfOppDet
-  val TURN_AGENT_ATERU_NUMBER = 3
+  val AGENT_DEFINE_TURN = 3
   val VOTE_DECIDED_TURN = 8
-  var possdecFlag = false//人狼が狂人を把握したことを発言したかどうかのフラグ
+  var possDecFlag = false//人狼が狂人を把握したことを発言したかどうかのフラグ
   var turn = 0
 
   val divineList: mutable.MutableList[Judge] = mutable.MutableList.empty[Judge]
   var agentList: mutable.MutableList[Agent] = mutable.MutableList.empty[Agent]
 
-
+  val attentionList: mutable.MutableList[Float] = mutable.MutableList.empty[Float]
 
 
   def init(gameInfo: GameInfo) :Unit={
     gameInfoList.clear()
     gameInfoList += gameInfo
-    possdecFlag = false//人狼が狂人を把握したことを発言したかどうかのフラグ
+    possDecFlag = false//人狼が狂人を把握したことを発言したかどうかのフラグ
     agentList= agentListChange(gameInfoList.last.getAliveAgentList).filter(el => gameInfoList.last.getAgent != el)
     divineList.clear()
     nameDetectList.clear()
@@ -47,7 +47,8 @@ class DialogManager{
   def setNeoTalkList(gameInfo: GameInfo)= {
     //val newGetTalkSize = agentListChange(gameInfo.getAliveAgentList).size - 1  自分を除く直近のトークリストの数
     if (!gameInfo.getTalkList.isEmpty){
-      val recentTalkList: mutable.MutableList[Talk] = talkListChange(gameInfo.getTalkList).filter(_.getTurn == talkListChange(gameInfo.getTalkList).last.getTurn)
+      val recentTalkList: mutable.MutableList[Talk] = talkListChange(gameInfo.getTalkList).filter(_.getTurn
+                                                        == talkListChange(gameInfo.getTalkList).last.getTurn)
       recentTalkList.foreach {
         recentTalk =>
           neoTalkList += NeoTalk(recentTalk)
@@ -66,6 +67,7 @@ class DialogManager{
     turn
   }
 
+  //javaのリストをscalaのリストに変換
   def agentListChange(javalist: util.List[Agent]): mutable.MutableList[Agent]={
     val mutableList = mutable.MutableList.empty[Agent]
     javalist.forEach{

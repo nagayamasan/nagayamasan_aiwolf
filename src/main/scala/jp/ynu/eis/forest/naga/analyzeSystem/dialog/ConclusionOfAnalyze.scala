@@ -6,6 +6,7 @@ class ConclusionOfAnalyze {
   //解析結果を入れる
   val resultofmecab = new ResultOfMeCab
   val resultofcabocha = new ResultOfCaboCha
+
   //val resultofopp = new ResultOfOppDet
 
 }
